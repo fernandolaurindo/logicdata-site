@@ -90,14 +90,17 @@ ul { list-style: none; }
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 9999;
+    background: rgba(10, 14, 26, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transition: background var(--ease), box-shadow var(--ease);
 }
 
 .header.scrolled {
-    background: rgba(10, 14, 26, 0.94);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(10, 14, 26, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 1px 0 var(--border);
 }
 
