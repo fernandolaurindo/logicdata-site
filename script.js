@@ -188,6 +188,60 @@ document.addEventListener('click', (e) => {
 })();
 
 // ============================================================
+//  Reading progress bar
+// ============================================================
+(function () {
+    const bar = document.getElementById('progress-bar');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = `${Math.min((scrolled / total) * 100, 100)}%`;
+    }, { passive: true });
+})();
+
+// ============================================================
+//  Active nav link on scroll
+// ============================================================
+(function () {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav__link');
+    if (!sections.length || !navLinks.length) return;
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active',
+                        link.getAttribute('href') === `#${entry.target.id}`);
+                });
+            }
+        });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+})();
+
+// ============================================================
+//  Rotating word in hero subtitle
+// ============================================================
+(function () {
+    const el = document.getElementById('rotating-word');
+    if (!el) return;
+    const words = ['logística', 'financeiro', 'operações', 'distribuição'];
+    let idx = 0;
+
+    setInterval(() => {
+        el.classList.add('fade-out');
+        setTimeout(() => {
+            idx = (idx + 1) % words.length;
+            el.textContent = words[idx];
+            el.classList.remove('fade-out');
+        }, 300);
+    }, 2600);
+})();
+
+// ============================================================
 //  3D tilt hover — service cards & challenge cards
 // ============================================================
 (function () {

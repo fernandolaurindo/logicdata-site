@@ -152,6 +152,8 @@ ul { list-style: none; }
 }
 .nav__link:hover { color: var(--text-primary); }
 .nav__link:hover::after { width: 100%; }
+.nav__link.active { color: var(--accent); }
+.nav__link.active::after { width: 100%; }
 
 /* Hamburger */
 .nav__toggle {
@@ -1551,6 +1553,76 @@ ul { list-style: none; }
 .reveal.revealed {
     opacity: 1;
     transform: none;
+}
+
+/* ===========================================
+   PROGRESS BAR
+   =========================================== */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), #8b5cf6);
+    z-index: 10001;
+    pointer-events: none;
+    transition: width 0.1s linear;
+}
+
+/* ===========================================
+   WHATSAPP FLOATING BUTTON
+   =========================================== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 54px;
+    height: 54px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+    z-index: 9000;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+}
+.whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+}
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 28px rgba(37, 211, 102, 0.6);
+}
+.whatsapp-float::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(37, 211, 102, 0.4);
+    animation: waPulse 2.8s ease-in-out infinite;
+}
+@keyframes waPulse {
+    0%, 100% { transform: scale(1);    opacity: 0.7; }
+    60%       { transform: scale(1.45); opacity: 0;   }
+}
+
+/* ===========================================
+   ROTATING WORD
+   =========================================== */
+.rotating-word {
+    color: var(--accent);
+    font-weight: 600;
+    display: inline-block;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.rotating-word.fade-out {
+    opacity: 0;
+    transform: translateY(-6px);
 }
 
 /* ===========================================
