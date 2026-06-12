@@ -818,6 +818,17 @@ ul { list-style: none; }
     margin-bottom: 12px;
 }
 
+.section-tag--pain {
+    font-size: clamp(1.2rem, 2.25vw, 1.76rem);
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    display: block;
+    text-shadow: 0 0 32px rgba(0, 212, 255, 0.35);
+}
+
 .section-title {
     font-size: clamp(1.6rem, 3vw, 2.35rem);
     font-weight: 700;
@@ -1493,6 +1504,53 @@ ul { list-style: none; }
 .footer__copy {
     font-size: 0.8rem;
     color: var(--text-secondary);
+}
+
+/* ===========================================
+   CTA MICROCOPY
+   =========================================== */
+.cta-microcopy {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    opacity: 0.75;
+    letter-spacing: 0.01em;
+}
+.cta-microcopy--center { justify-content: center; }
+
+.microcopy-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.6);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ===========================================
+   KEYWORD HIGHLIGHTS
+   =========================================== */
+.kw {
+    color: var(--accent);
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* ===========================================
+   SCROLL REVEAL
+   =========================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.revealed {
+    opacity: 1;
+    transform: none;
 }
 
 /* ===========================================
