@@ -137,7 +137,7 @@ export default function Contact() {
             <motion.a
               href="https://wa.me/5551992113434"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.97 }}
               style={{
