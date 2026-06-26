@@ -162,7 +162,7 @@ export default function LogicBiPage() {
       <LogicBiNav />
 
       {/* ══ HERO ══════════════════════════════════════ */}
-      <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden', padding: '140px 0 100px' }}>
+      <section className="lb-hero" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden', padding: '140px 0 100px' }}>
         {/* Grid bg */}
         <div aria-hidden style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
@@ -258,7 +258,7 @@ export default function LogicBiPage() {
       </section>
 
       {/* ══ O QUE É ═══════════════════════════════════ */}
-      <section id="conceito" style={{ padding: '100px 0', background: 'linear-gradient(180deg, transparent, rgba(124,58,237,0.03) 50%, transparent)' }}>
+      <section id="conceito" className="lb-section" style={{ padding: '100px 0', background: 'linear-gradient(180deg, transparent, rgba(124,58,237,0.03) 50%, transparent)' }}>
         <div className="container">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} style={{ textAlign: 'center', marginBottom: 52 }}>
             <span className="section-tag">Conceito</span>
@@ -297,11 +297,11 @@ export default function LogicBiPage() {
             ))}
           </div>
         </div>
-        <style>{`@media(max-width:700px){.concept-grid{grid-template-columns:1fr!important}}`}</style>
+        <style>{`@media(max-width:480px){.concept-grid{grid-template-columns:1fr!important}}`}</style>
       </section>
 
       {/* ══ MÓDULOS ═══════════════════════════════════ */}
-      <section id="modulos" style={{ padding: '100px 0' }}>
+      <section id="modulos" className="lb-section" style={{ padding: '100px 0' }}>
         <div className="container">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} style={{ textAlign: 'center', marginBottom: 52 }}>
             <span className="section-tag">Plataforma</span>
@@ -333,14 +333,11 @@ export default function LogicBiPage() {
             ))}
           </div>
         </div>
-        <style>{`
-          @media(max-width:900px){.modules-grid{grid-template-columns:repeat(2,1fr)!important}}
-          @media(max-width:500px){.modules-grid{grid-template-columns:1fr!important}}
-        `}</style>
+        <style>{`@media(max-width:900px){.modules-grid{grid-template-columns:repeat(2,1fr)!important}}`}</style>
       </section>
 
       {/* ══ COMO FUNCIONA ════════════════════════════ */}
-      <section id="como-funciona" style={{ padding: '100px 0', background: 'linear-gradient(180deg, transparent, rgba(0,212,255,0.02) 50%, transparent)' }}>
+      <section id="como-funciona" className="lb-section" style={{ padding: '100px 0', background: 'linear-gradient(180deg, transparent, rgba(0,212,255,0.02) 50%, transparent)' }}>
         <div className="container">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} style={{ textAlign: 'center', marginBottom: 60 }}>
             <span className="section-tag">Arquitetura</span>
@@ -400,11 +397,11 @@ export default function LogicBiPage() {
             </p>
           </motion.div>
         </div>
-        <style>{`@media(max-width:700px){.flow-row{flex-direction:column!important;gap:32px!important;align-items:flex-start!important}}`}</style>
+        <style>{`@media(max-width:700px){.flow-row{flex-wrap:wrap!important;justify-content:center!important}.flow-row>div{flex:0 0 calc(50% - 16px)!important;min-width:0!important}}`}</style>
       </section>
 
       {/* ══ PLANOS ════════════════════════════════════ */}
-      <section id="planos" style={{ padding: '100px 0' }}>
+      <section id="planos" className="lb-section" style={{ padding: '100px 0' }}>
         <div className="container">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} style={{ textAlign: 'center', marginBottom: 52 }}>
             <span className="section-tag">Planos</span>
@@ -500,7 +497,7 @@ export default function LogicBiPage() {
       </section>
 
       {/* ══ CTA FINAL ════════════════════════════════ */}
-      <section style={{ padding: '100px 0 120px' }}>
+      <section className="lb-cta" style={{ padding: '100px 0 120px' }}>
         <div className="container" style={{ textAlign: 'center', maxWidth: 640 }}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
             <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: 18 }}>
@@ -536,6 +533,15 @@ export default function LogicBiPage() {
           </motion.div>
         </div>
       </section>
+
+      <style>{`
+        @media(max-width:700px){
+          .lb-section{padding:60px 0!important}
+          .lb-hero{padding:110px 0 70px!important;min-height:auto!important}
+          .lb-plans{padding:60px 0!important}
+          .lb-cta{padding:60px 0 80px!important}
+        }
+      `}</style>
 
       {/* Footer simples */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '28px 0' }}>
