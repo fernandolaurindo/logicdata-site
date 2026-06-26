@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react'
 import { motion, useInView, useMotionValue, animate } from 'framer-motion'
-import fernandoPhoto from '../assets/fernando.jpg'
 
 function Counter({ from = 0, to, suffix = '', duration = 2 }) {
   const ref = useRef(null)
@@ -63,7 +62,7 @@ export default function About() {
               A <strong style={{ color: 'var(--color-text-primary)' }}>LogicData</strong> é uma consultoria especializada em dados, automação e tecnologia aplicada aos negócios.
             </p>
             <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', lineHeight: 1.8, marginBottom: 18 }}>
-              Liderada por <em style={{ color: 'var(--color-text-primary)', fontStyle: 'normal', fontWeight: 600 }}>Fernando Laurindo</em>, com mais de 20 anos em operações logísticas, a empresa nasceu da necessidade real de transformar desafios operacionais em{' '}
+              Com mais de 20 anos em operações logísticas, a empresa nasceu da necessidade real de transformar desafios operacionais em{' '}
               <em style={{ color: 'var(--color-cyan)', fontStyle: 'italic' }}>soluções práticas, escaláveis e orientadas por dados</em>.
             </p>
             <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', lineHeight: 1.8 }}>
@@ -112,70 +111,6 @@ export default function About() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             style={{ display: 'flex', flexDirection: 'column' }}
           >
-            {/* Photo card — horizontal compacto */}
-            <motion.div
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                padding: '2px',
-                borderRadius: 18,
-                background: 'linear-gradient(135deg, rgba(0,212,255,0.5) 0%, rgba(124,58,237,0.4) 100%)',
-                marginBottom: 12,
-                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-              }}
-            >
-              <div style={{
-                borderRadius: 16, overflow: 'hidden',
-                background: 'linear-gradient(135deg, rgba(12,18,38,0.95) 0%, rgba(7,11,23,0.98) 100%)',
-                backdropFilter: 'blur(20px)',
-                display: 'flex', alignItems: 'stretch',
-              }}>
-                {/* Foto */}
-                <div style={{ width: 110, flexShrink: 0, overflow: 'hidden' }}>
-                  <img
-                    src={fernandoPhoto}
-                    alt="Fernando Laurindo"
-                    style={{
-                      width: '100%', height: '100%',
-                      objectFit: 'cover', objectPosition: 'center top',
-                      display: 'block',
-                      filter: 'contrast(1.05) saturate(0.82) brightness(0.95)',
-                    }}
-                  />
-                </div>
-                {/* Info */}
-                <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
-                  <div style={{
-                    fontSize: '0.58rem', fontWeight: 700, textTransform: 'uppercase',
-                    letterSpacing: '0.14em', color: 'var(--color-text-muted)',
-                  }}>
-                    Fundador
-                  </div>
-                  <div style={{
-                    fontFamily: 'var(--font-display)', fontWeight: 700,
-                    fontSize: '1rem', letterSpacing: '-0.02em', lineHeight: 1.2,
-                  }}>
-                    Fernando Laurindo
-                  </div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--color-cyan)', fontWeight: 500, marginBottom: 6 }}>
-                    Especialista em Dados
-                  </div>
-                  <div style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 5,
-                    padding: '3px 10px', borderRadius: 100,
-                    background: 'rgba(0,212,255,0.07)',
-                    border: '1px solid rgba(0,212,255,0.18)',
-                    fontSize: '0.6rem', fontWeight: 700,
-                    color: 'var(--color-cyan)', letterSpacing: '0.08em',
-                    alignSelf: 'flex-start',
-                  }}>
-                    <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--color-cyan)', animation: 'pulse-dot 2s ease-in-out infinite' }} />
-                    20+ anos de mercado
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
             {/* Header card */}
             <div style={{
               padding: '20px 24px',
