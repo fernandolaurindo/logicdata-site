@@ -109,7 +109,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: 'flex', flexDirection: 'column' }}
+            style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
           >
             {/* Header card */}
             <div style={{
@@ -128,7 +128,7 @@ export default function About() {
             </div>
 
             {/* Differentials */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
               {diffs.map((diff, i) => (
                 <motion.div
                   key={i}
@@ -139,7 +139,8 @@ export default function About() {
                   whileHover={{ x: 6, scale: 1.01 }}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 14,
-                    padding: '14px 18px',
+                    padding: '18px 18px',
+                    flex: 1,
                     borderRadius: 14,
                     background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
                     backdropFilter: 'blur(16px)',
