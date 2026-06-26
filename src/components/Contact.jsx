@@ -91,7 +91,7 @@ export default function Contact() {
             </p>
 
             {/* Benefits mini-cards */}
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'nowrap' }}>
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               {benefits.map((b, i) => (
                 <motion.div
                   key={b.title}
