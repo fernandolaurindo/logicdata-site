@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LogicBi — KPIs & Performance (mockup demo)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f1f5f9;--card:#fff;--ink:#0f172a;--ink2:#334155;--muted:#64748b;--muted2:#94a3b8;
+    --line:#e2e8f0;--blue:#2563eb;--green:#16a34a;--red:#dc2626;--gold:#d97706;--teal:#0d9488;--violet:#7c3aed;
+  }
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;-webkit-font-smoothing:antialiased;padding:30px 34px}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.02em}
+  .subt{color:var(--muted);font-size:15px;margin-top:2px}
+
+  .filters{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:20px;display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .fld{display:flex;flex-direction:column;gap:6px}
+  .fld label{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+  .inp{border:1px solid var(--line);border-radius:9px;padding:9px 12px;font:inherit;font-size:14px;color:var(--ink2);background:#fff;min-width:130px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .inp.sel{color:var(--muted2)}
+  .seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .seg span{padding:9px 16px;font-size:14px;font-weight:600;color:var(--muted)}
+  .seg span.on{background:#eff6ff;color:var(--blue)}
+  .sp{margin-left:auto;display:flex;gap:10px}
+  .btn{border-radius:9px;padding:10px 20px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink2)}
+  .btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+
+  .sla-head{display:flex;align-items:center;gap:12px;margin:26px 0 16px}
+  .sla-head .bi{width:38px;height:38px;border-radius:10px;background:var(--blue);display:flex;align-items:center;justify-content:center}
+  .sla-head .bi svg{width:20px;height:20px;color:#fff}
+  .sla-head h3{font-size:18px;font-weight:700}
+  .sla-head p{font-size:12.5px;color:var(--muted)}
+
+  .cards{display:grid;grid-template-columns:repeat(7,1fr);gap:14px}
+  .mc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .mc .ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .mc .ic svg{width:19px;height:19px;color:#fff}
+  .mc .k{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--muted);text-transform:uppercase}
+  .mc .v{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+  .mc .c{font-size:12px;color:var(--muted);margin-top:3px}
+  .bg-slate{background:#475569}.bg-gray{background:#94a3b8}.bg-green{background:var(--green)}
+  .bg-red{background:var(--red)}.bg-blue{background:#0ea5e9}.bg-violet{background:var(--violet)}.bg-teal{background:var(--teal)}
+  .t-green{color:var(--green)}.t-red{color:var(--red)}.t-gold{color:var(--gold)}.t-blue{color:#0284c7}.t-violet{color:var(--violet)}.t-ink{color:var(--ink)}
+
+  .detail{background:#eff6ff;border:1px solid #dbeafe;border-radius:16px;padding:20px 22px;margin-top:22px}
+  .detail-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .detail-head .l{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:700;color:var(--blue)}
+  .detail-head .l svg{width:18px;height:18px}
+  .detail-head .r{font-size:13px;color:#3b82f6;font-weight:600}
+  .d3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .dc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .dc .dk{font-size:12px;font-weight:700;letter-spacing:.05em;color:var(--ink2);text-transform:uppercase}
+  .dc .dv{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:8px 0 2px}
+  .dc .dp{font-size:12.5px;color:var(--muted)}
+  .dc .bar{height:5px;border-radius:3px;margin-top:12px;background:#eef2f7;overflow:hidden}
+  .dc .bar i{display:block;height:100%;border-radius:3px}
+</style>
+</head>
+<body>
+  <h1>KPIs &amp; Performance</h1>
+  <div class="subt">Baseado na Previsão de Entrega do período selecionado</div>
+
+  <div class="filters">
+    <div class="fld"><label>Previsão — de</label><div class="inp">20/06/2026 📅</div></div>
+    <div class="fld"><label>Até</label><div class="inp">20/07/2026 📅</div></div>
+    <div class="fld"><label>Cliente</label><div class="inp sel">Todos ▾</div></div>
+    <div class="fld"><label>UF entrega</label><div class="inp sel">Todos ▾</div></div>
+    <div class="fld"><label>Unidade (CD)</label><div class="inp sel">Todos ▾</div></div>
+    <div class="fld"><label>Exibir</label><div class="seg"><span class="on">Todos</span><span>Finalizados</span></div></div>
+    <div class="sp"><button class="btn">Limpar</button><button class="btn pri">Aplicar</button></div>
+  </div>
+
+  <div class="sla-head">
+    <div class="bi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="9" width="3" height="8"/><rect x="12" y="5" width="3" height="12"/><rect x="17" y="12" width="3" height="5"/></svg></div>
+    <div><h3>SLA Geral Transportadora</h3><p>% calculado sobre total de pedidos do período</p></div>
+  </div>
+
+  <div class="cards">
+    <div class="mc"><div class="ic bg-slate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><div class="k">Total</div><div class="v t-ink">1.765</div></div>
+    <div class="mc"><div class="ic bg-gray"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div><div class="k">Finalizados</div><div class="v t-ink">1.334</div><div class="c">pedidos</div></div>
+    <div class="mc"><div class="ic bg-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/></svg></div><div class="k">No prazo</div><div class="v t-green">92.4%</div><div class="c">1.632 entregas</div></div>
+    <div class="mc"><div class="ic bg-red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div><div class="k">Fora do prazo</div><div class="v t-red">4.1%</div><div class="c">73 entregas</div></div>
+    <div class="mc"><div class="ic bg-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="k">Em aberto</div><div class="v t-blue">3.5%</div><div class="c">62 pedidos</div></div>
+    <div class="mc"><div class="ic bg-violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></div><div class="k">Tempo médio</div><div class="v t-violet">2.4d</div><div class="c">dias úteis</div></div>
+    <div class="mc"><div class="ic bg-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="13" height="11" rx="1"/><path d="M14 9h4l3 3v5h-7z"/><circle cx="6" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg></div><div class="k">No prazo LM</div><div class="v t-green">96.8%</div><div class="c">617 elegíveis</div></div>
+  </div>
+
+  <div class="detail">
+    <div class="detail-head">
+      <div class="l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Em aberto — detalhe</div>
+      <div class="r">62 pedidos em aberto</div>
+    </div>
+    <div class="d3">
+      <div class="dc"><div class="dk">Com insucesso</div><div class="dv t-red">24</div><div class="dp">tentativa sem sucesso</div><div class="bar"><i style="width:39%;background:var(--red)"></i></div></div>
+      <div class="dc"><div class="dk">Com pendência</div><div class="dv t-gold">29</div><div class="dp">aguardando tratativa</div><div class="bar"><i style="width:47%;background:var(--gold)"></i></div></div>
+      <div class="dc"><div class="dk">Sem justificativa</div><div class="dv t-ink">9</div><div class="dp">sem registro de ocorrência</div><div class="bar"><i style="width:14%;background:#94a3b8"></i></div></div>
+    </div>
+  </div>
+
+  <!-- Pareto: Fora do Prazo por Entregador -->
+  <div class="sla-head" style="margin-top:28px">
+    <div class="bi" style="background:#dc2626">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="8" width="3" height="9"/><rect x="12" y="4" width="3" height="13"/><rect x="17" y="11" width="3" height="6"/></svg>
+    </div>
+    <div>
+      <h3>Fora do Prazo por Entregador — Pareto</h3>
+      <p>73 entregas fora do prazo · período 20/06–20/07/2026 · 20 entregadores</p>
+    </div>
+    <div style="margin-left:auto;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:8px 18px;font-size:13px;font-weight:700;color:#dc2626;white-space:nowrap">
+      10 entregadores = 80% das falhas
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:22px 28px;box-shadow:0 1px 3px rgba(15,23,42,.04);margin-bottom:10px">
+    <svg id="pareto-svg" viewBox="0 0 1320 330" style="width:100%;height:auto;display:block"></svg>
+    <div style="display:flex;align-items:center;gap:28px;margin-top:14px;padding-top:14px;border-top:1px solid #f1f5f9;font-size:12.5px;color:#64748b">
+      <span style="display:flex;align-items:center;gap:7px"><span style="width:14px;height:14px;border-radius:3px;background:#dc2626;display:inline-block"></span>Concentração — vital few (&lt;80%)</span>
+      <span style="display:flex;align-items:center;gap:7px"><span style="width:14px;height:14px;border-radius:3px;background:#fca5a5;display:inline-block"></span>Disperso — trivial many</span>
+      <span style="display:flex;align-items:center;gap:7px"><span style="width:24px;height:2.5px;background:#2563eb;display:inline-block;border-radius:2px"></span>% acumulada</span>
+      <span style="display:flex;align-items:center;gap:7px"><span style="width:24px;border-top:2px dashed #f59e0b;display:inline-block"></span>80% de referência</span>
+    </div>
+  </div>
+
+<script>
+(function(){
+  var data=[
+    {name:"Carlos A.",  val:10},
+    {name:"Marcos S.",  val:9},
+    {name:"Pedro L.",   val:8},
+    {name:"Rafael M.",  val:7},
+    {name:"Lucas F.",   val:6},
+    {name:"André B.",   val:5},
+    {name:"Felipe T.",  val:4},
+    {name:"Diego C.",   val:4},
+    {name:"Bruno R.",   val:3},
+    {name:"Eduardo P.", val:3},
+    {name:"João V.",    val:2},
+    {name:"Thiago N.",  val:2},
+    {name:"Gabriel S.", val:2},
+    {name:"Rodrigo L.", val:2},
+    {name:"Leandro O.", val:1},
+    {name:"Fábio M.",   val:1},
+    {name:"Paulo J.",   val:1},
+    {name:"Renato K.",  val:1},
+    {name:"Sérgio A.",  val:1},
+    {name:"Vinicius D.",val:1},
+  ];
+  var total=73, N=data.length;
+  var L=64,R=1260,T=24,B=262;
+  var CW=R-L, CH=B-T;
+  var GW=CW/N;
+  var BW=GW*0.64;
+  var maxVal=10;
+
+  function f(n){return Math.round(n*10)/10;}
+  function bcx(i){return L+(i+0.5)*GW;}
+  function bx(i){return L+i*GW+(GW-BW)/2;}
+  function bh(v){return v/maxVal*CH;}
+  function ly(p){return B-p/100*CH;}
+
+  var cum=0;
+  var cpts=data.map(function(d,i){
+    cum+=d.val;
+    var pct=cum/total*100;
+    return {x:bcx(i),y:ly(pct),pct:+pct.toFixed(1)};
+  });
+
+  var s='';
+
+  // Grid lines & left Y-axis labels
+  for(var v=2;v<=10;v+=2){
+    var gy=B-v/maxVal*CH;
+    s+='<line x1="'+L+'" y1="'+f(gy)+'" x2="'+R+'" y2="'+f(gy)+'" stroke="#f1f5f9" stroke-width="1.2"/>';
+    s+='<text x="'+(L-8)+'" y="'+f(gy+4)+'" text-anchor="end" font-size="11" fill="#94a3b8">'+v+'</text>';
+  }
+
+  // Right Y-axis % labels (every 25%, skip near 80%)
+  [0,25,50,75,100].forEach(function(p){
+    if(Math.abs(p-80)>6){
+      var ry=ly(p);
+      s+='<text x="'+(R+10)+'" y="'+f(ry+4)+'" font-size="11" fill="#94a3b8">'+p+'%</text>';
+    }
+  });
+
+  // 80% dashed reference line
+  var y80=ly(80);
+  s+='<line x1="'+L+'" y1="'+f(y80)+'" x2="'+R+'" y2="'+f(y80)+'" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6,4"/>';
+  s+='<text x="'+(R+10)+'" y="'+f(y80+4)+'" font-size="11" font-weight="700" fill="#d97706">80%</text>';
+
+  // Bars
+  data.forEach(function(d,i){
+    var x=bx(i), h=bh(d.val), y=B-h;
+    var vital=cpts[i].pct<=80.9;
+    var fill=vital?'#dc2626':'#fca5a5';
+    s+='<rect x="'+f(x)+'" y="'+f(y)+'" width="'+f(BW)+'" height="'+f(h)+'" rx="3" fill="'+fill+'"/>';
+    if(d.val>=2){
+      s+='<text x="'+f(bcx(i))+'" y="'+f(y-5)+'" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">'+d.val+'</text>';
+    }
+  });
+
+  // Cumulative line path
+  var pts=cpts.map(function(p,i){return (i===0?'M':'L')+f(p.x)+','+f(p.y);}).join(' ');
+  s+='<path d="'+pts+'" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+
+  // Dots on line
+  cpts.forEach(function(p){
+    s+='<circle cx="'+f(p.x)+'" cy="'+f(p.y)+'" r="3.5" fill="#fff" stroke="#2563eb" stroke-width="2"/>';
+  });
+
+  // X-axis labels (rotated)
+  data.forEach(function(d,i){
+    s+='<text transform="translate('+f(bcx(i))+','+(B+14)+') rotate(-42)" text-anchor="end" font-size="11.5" fill="#475569">'+d.name+'</text>';
+  });
+
+  // Axes
+  s+='<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+B+'" stroke="#cbd5e1" stroke-width="1.2"/>';
+  s+='<line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" stroke="#cbd5e1" stroke-width="1.2"/>';
+
+  // Axis titles
+  s+='<text transform="translate(14,'+f((T+B)/2)+') rotate(-90)" text-anchor="middle" font-size="12" fill="#94a3b8">Qtd. fora do prazo</text>';
+  s+='<text transform="translate('+(R+50)+','+f((T+B)/2)+') rotate(90)" text-anchor="middle" font-size="12" fill="#94a3b8">% Acumulada</text>';
+
+  document.getElementById('pareto-svg').innerHTML=s;
+})();
+</script>
+</body>
+</html>

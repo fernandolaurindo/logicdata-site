@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LogicBi — Contas a Pagar (mockup demo)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f1f5f9;--card:#fff;--ink:#0f172a;--ink2:#334155;--muted:#64748b;--muted2:#94a3b8;
+    --line:#e2e8f0;--blue:#2563eb;--green:#16a34a;--red:#dc2626;--gold:#d97706;--orange:#ea580c;
+  }
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;-webkit-font-smoothing:antialiased;display:flex;min-height:100vh}
+
+  /* ── Sidebar ── */
+  .sidebar{width:228px;min-width:228px;background:#0f172a;display:flex;flex-direction:column}
+  .sb-brand{padding:20px 20px 14px;border-bottom:1px solid rgba(255,255,255,.07)}
+  .sb-brand .logo{font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff}
+  .sb-brand .sub{font-size:11px;color:#475569;margin-top:2px}
+  .sb-user{padding:13px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .sb-user .av{width:34px;height:34px;border-radius:9px;background:#1e40af;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+  .sb-user .name{font-size:13px;font-weight:600;color:#e2e8f0}
+  .sb-user .role{font-size:11px;color:#64748b}
+  .sb-section{padding:14px 20px 5px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#475569}
+  .sb-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13.5px;font-weight:500;color:#94a3b8;cursor:pointer}
+  .sb-item.on{color:#fff;background:rgba(37,99,235,.22);border-left:3px solid #3b82f6;padding-left:17px}
+  .sb-item .ic{width:17px;text-align:center;font-style:normal}
+
+  /* ── Main ── */
+  .main{flex:1;padding:28px 32px;overflow:auto}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+  h1{font-size:27px;font-weight:800;letter-spacing:-.02em}
+  .subt{color:var(--muted);font-size:14px;margin-top:3px}
+  .btns{display:flex;gap:10px}
+  .btn{border:1px solid var(--line);background:#fff;color:var(--ink2);border-radius:10px;padding:10px 18px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px}
+  .btn-gr{border-color:#16a34a;color:#16a34a;background:#f0fdf4}
+  .btn-pri{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+  /* Cards 2 rows */
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+  .sc{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px 18px;display:flex;align-items:flex-start;gap:13px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .sc .ic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+  .ic-yw{background:#fffbeb}.ic-or{background:#fff7ed}.ic-rd{background:#fef2f2}.ic-gr{background:#f0fdf4}
+  .sc .k{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .sc .v{font-size:20px;font-weight:800;letter-spacing:-.01em;margin:5px 0 3px}
+  .sc .c{font-size:12px;color:var(--muted)}
+  .t-rd{color:var(--red)}.t-or{color:var(--orange)}.t-yw{color:var(--gold)}.t-gr{color:var(--green)}.t-ink{color:var(--ink)}
+
+  /* Tabs */
+  .tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .tab{padding:7px 15px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--muted)}
+  .tab.on{background:#eff6ff;color:var(--blue);border-color:#bfdbfe}
+
+  /* Search row */
+  .srow{display:flex;gap:10px;margin-bottom:16px}
+  .srch{flex:1;border:1px solid var(--line);border-radius:9px;padding:9px 13px;font:inherit;font-size:14px;color:var(--muted2);background:#fff}
+  .dp{border:1px solid var(--line);border-radius:9px;padding:9px 13px;font:inherit;font-size:13px;color:var(--muted2);background:#fff;min-width:138px}
+
+  /* Table */
+  .tbl{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .tbl-hdr{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1px solid var(--line)}
+  .tbl-hdr .cnt{font-size:13px;font-weight:600;color:var(--muted)}
+  .tbl-hdr .exp{font-size:13px;color:var(--blue);font-weight:600}
+  table{width:100%;border-collapse:collapse}
+  th{padding:11px 14px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);background:#f8fafc}
+  td{padding:12px 14px;font-size:13.5px;color:var(--ink2);border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .dot-or{background:#f97316}
+  .plate{font-weight:700;color:var(--ink);font-size:14px}
+  .driver{font-size:12px;color:var(--muted);margin-top:2px}
+  .venc{color:var(--red);font-weight:700;display:flex;align-items:center;gap:4px}
+  .act{color:var(--blue);font-weight:600;cursor:pointer;white-space:nowrap}
+  .bonus{color:var(--red);font-weight:700}
+  b{color:var(--ink);font-weight:700}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="logo">LogicBi</div>
+    <div class="sub">Painel Operacional</div>
+  </div>
+  <div class="sb-user">
+    <div class="av">JS</div>
+    <div>
+      <div class="name">João Silva</div>
+      <div class="role">Master</div>
+    </div>
+  </div>
+  <div class="sb-item"><i class="ic">🏠</i> Início</div>
+  <div class="sb-section">Operacional</div>
+  <div class="sb-item"><i class="ic">📈</i> KPIs &amp; Performance</div>
+  <div class="sb-item"><i class="ic">🎯</i> Causa &amp; Ação</div>
+  <div class="sb-item"><i class="ic">🔗</i> Controle Operacional</div>
+  <div class="sb-item"><i class="ic">🔍</i> Consulta Pedido</div>
+  <div class="sb-section">Financeiro</div>
+  <div class="sb-item"><i class="ic">📄</i> Faturamento</div>
+  <div class="sb-item on"><i class="ic">💸</i> Contas a Pagar</div>
+  <div class="sb-item"><i class="ic">💰</i> Contas a Receber</div>
+  <div class="sb-item"><i class="ic">📊</i> DRE</div>
+  <div class="sb-item"><i class="ic">👤</i> Prestadores</div>
+  <div class="sb-section">Administração</div>
+</aside>
+
+<main class="main">
+  <div class="top">
+    <div>
+      <h1>Contas a Pagar</h1>
+      <div class="subt">Fechamentos por entregador / placa</div>
+    </div>
+    <div class="btns">
+      <button class="btn">🔄 Buscar nomes</button>
+      <button class="btn btn-gr">📗 PIX em Lote</button>
+      <button class="btn btn-pri">📅 Gerar Fechamento</button>
+    </div>
+  </div>
+
+  <div class="cards3">
+    <div class="sc"><div class="ic ic-yw">📄</div><div><div class="k">Pendente de NF</div><div class="v t-yw">R$11.094,55</div><div class="c">15 fechamentos</div></div></div>
+    <div class="sc"><div class="ic ic-or">💼</div><div><div class="k">A Pagar</div><div class="v t-or">R$11.094,55</div><div class="c">8 fechamentos</div></div></div>
+    <div class="sc"><div class="ic ic-rd">⚠️</div><div><div class="k">Vencidos</div><div class="v t-rd">22</div><div class="c">requerem atenção</div></div></div>
+  </div>
+  <div class="cards3">
+    <div class="sc"><div class="ic ic-gr">✅</div><div><div class="k">Pago</div><div class="v t-gr">R$0,00</div><div class="c">0 fechamentos</div></div></div>
+    <div class="sc"><div class="ic ic-rd">📉</div><div><div class="k">Total Ônus</div><div class="v t-rd">R$196,61</div><div class="c">descontos lançados</div></div></div>
+    <div class="sc"><div class="ic ic-gr">🎁</div><div><div class="k">Total Bônus</div><div class="v t-gr">R$0,00</div><div class="c">acréscimos lançados</div></div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on">Todos</div>
+    <div class="tab">Aguard. NF</div>
+    <div class="tab">NF Recebida</div>
+    <div class="tab">Aguard. Pgto</div>
+    <div class="tab">Pago</div>
+  </div>
+  <div class="srow">
+    <input class="srch" placeholder="🔍  Filtrar por placa..." readonly>
+    <input class="dp" placeholder="dd/mm/aaaa" readonly>
+    <input class="dp" placeholder="dd/mm/aaaa" readonly>
+  </div>
+
+  <div class="tbl">
+    <div class="tbl-hdr">
+      <span class="cnt">23 registros</span>
+      <span class="exp">⬇ Exportar</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20px"></th>
+          <th>Placa / Entregador</th><th>Período</th><th>Pedidos</th>
+          <th>Comissão</th><th style="color:#dc2626">Ônus</th><th style="color:#16a34a">Bônus</th>
+          <th>Líquido</th><th>Limite NF</th><th>Limite Pgto</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="dot dot-or"></span></td>
+          <td><div class="plate">FGP4299</div><div class="driver">Carlos Mendes</div></td>
+          <td>01/05 → 31/05/2026</td><td>2</td><td>R$158,82</td><td>—</td><td>—</td>
+          <td><b>R$158,82</b></td><td>27/06/2026</td>
+          <td><span class="venc">⚠ 04/07/2026</span></td>
+          <td><span class="act">Confirmar Pgto ›</span></td>
+        </tr>
+        <tr>
+          <td><span class="dot dot-or"></span></td>
+          <td><div class="plate">IMZ4A52</div><div class="driver">Ricardo Farias</div></td>
+          <td>01/05 → 31/05/2026</td><td>1</td><td>R$25,23</td><td>—</td><td>—</td>
+          <td><b>R$25,23</b></td><td>27/06/2026</td>
+          <td><span class="venc">⚠ 04/07/2026</span></td>
+          <td><span class="act">Confirmar Pgto ›</span></td>
+        </tr>
+        <tr>
+          <td><span class="dot dot-or"></span></td>
+          <td><div class="plate">ISH2A69</div><div class="driver">Eduardo Santos</div></td>
+          <td>01/05 → 31/05/2026</td><td>10</td><td>R$0,00</td><td>—</td><td>—</td>
+          <td><b>R$0,00</b></td><td>27/06/2026</td>
+          <td><span class="venc">⚠ 04/07/2026</span></td>
+          <td><span class="act">Confirmar Pgto ›</span></td>
+        </tr>
+        <tr>
+          <td><span class="dot dot-or"></span></td>
+          <td><div class="plate">ITL0115</div><div class="driver">Marcos Silva</div></td>
+          <td>01/05 → 31/05/2026</td><td>18</td><td>R$775,53</td><td class="bonus">-R$55,90</td><td>—</td>
+          <td><b>R$719,63</b></td><td>27/06/2026</td>
+          <td><span class="venc">⚠ 04/07/2026</span></td>
+          <td><span class="act">Confirmar Pgto ›</span></td>
+        </tr>
+        <tr>
+          <td><span class="dot dot-or"></span></td>
+          <td><div class="plate">MNP3B81</div><div class="driver">André Costa</div></td>
+          <td>01/05 → 31/05/2026</td><td>32</td><td>R$1.204,40</td><td>—</td><td>—</td>
+          <td><b>R$1.204,40</b></td><td>27/06/2026</td>
+          <td><span class="venc">⚠ 04/07/2026</span></td>
+          <td><span class="act">Confirmar Pgto ›</span></td>
+        </tr>
+        <tr>
+          <td><span class="dot dot-or"></span></td>
+          <td><div class="plate">QRT7C23</div><div class="driver">Paulo Rodrigues</div></td>
+          <td>01/05 → 31/05/2026</td><td>45</td><td>R$1.832,15</td><td class="bonus">-R$80,71</td><td>—</td>
+          <td><b>R$1.751,44</b></td><td>27/06/2026</td>
+          <td><span class="venc">⚠ 04/07/2026</span></td>
+          <td><span class="act">Confirmar Pgto ›</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

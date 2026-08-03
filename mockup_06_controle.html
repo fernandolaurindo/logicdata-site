@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LogicBi — Controle Operacional (mockup demo)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#f1f5f9;--card:#fff;--ink:#0f172a;--ink2:#334155;--muted:#64748b;--muted2:#94a3b8;
+    --line:#e2e8f0;--blue:#2563eb;--green:#16a34a;--red:#dc2626;--gold:#ca8a04;--violet:#7c3aed;}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;-webkit-font-smoothing:antialiased;padding:30px 34px}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.02em}
+  .subt{color:var(--muted);font-size:15px;margin-top:2px}
+
+  .filters{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:20px;display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .fld{display:flex;flex-direction:column;gap:6px}
+  .fld label{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+  .inp{border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px;color:var(--ink2);min-width:130px;display:flex;justify-content:space-between;gap:8px}
+  .inp.sel{color:var(--muted2)}
+  .seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .seg span{padding:9px 15px;font-size:14px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .seg span.on{background:#eff6ff;color:var(--blue)}
+  .sp{margin-left:auto;display:flex;gap:10px}
+  .btn{border-radius:9px;padding:10px 20px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink2)}
+  .btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+
+  .big3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  .bc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px;display:flex;justify-content:space-between;align-items:flex-start;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .bc .k{font-size:14px;color:var(--muted);font-weight:600}
+  .bc .v{font-size:40px;font-weight:800;letter-spacing:-.02em;margin-top:8px}
+  .bc .c{font-size:13px;font-weight:600;margin-top:4px}
+  .bc .ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+  .bc .ico svg{width:24px;height:24px}
+  .ic-b{background:#eff6ff;color:#2563eb}.ic-g{background:#f0fdf4;color:#16a34a}.ic-a{background:#fffbeb;color:#d97706}
+  .t-b{color:#1e40af}.t-g{color:var(--green)}.t-a{color:#b45309}
+
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:18px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .panel .ph{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;margin-bottom:14px}
+  .etapas{display:flex;align-items:center;gap:14px}
+  .ep{border-radius:12px;padding:14px 22px;min-width:130px;text-align:center}
+  .ep .t{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+  .ep .n{font-size:28px;font-weight:800;margin-top:4px}
+  .ep .pc{font-size:12px;font-weight:600}
+  .ep.a{background:#fffbeb;border:1px solid #fde68a}.ep.a .t,.ep.a .pc{color:#b45309}.ep.a .n{color:#b45309}
+  .ep.h{background:#eef2ff;border:1px solid #c7d2fe}.ep.h .t{color:#4338ca}.ep.h .n{color:#4338ca}.ep.h .pc{color:#6366f1}
+  .ep.d{background:#fdf4ff;border:1px solid #f5d0fe}.ep.d .t{color:#a21caf}.ep.d .n{color:#a21caf}.ep.d .pc{color:#c026d3}
+  .arrow{color:var(--muted2);font-size:20px}
+
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  .col-head{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:700}
+  .col-head .r{font-size:12px;color:var(--muted);font-weight:500}
+  .col-sub{font-size:12px;color:var(--muted2);margin:2px 0 14px}
+  .prow{margin-bottom:14px}
+  .prow .lab{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:5px}
+  .prow .lab .n{color:var(--ink)}
+  .track{height:12px;background:#f1f5f9;border-radius:7px;overflow:hidden}
+  .track i{display:block;height:100%;border-radius:7px}
+  .pareto .prow .lab{color:var(--ink2)}
+  .cum{color:var(--gold);font-weight:700;font-size:12px}
+</style>
+</head>
+<body>
+  <h1>Controle Operacional</h1>
+  <div class="subt">Visão analítica por data de emissão ou previsão</div>
+
+  <div class="filters">
+    <div class="fld"><label>Filtrar por</label><div class="seg"><span>📅 Emissão</span><span class="on">📅 Previsão de Entrega</span></div></div>
+    <div class="fld"><label>Previsão — de</label><div class="inp">01/05/2026 📅</div></div>
+    <div class="fld"><label>Previsão — até</label><div class="inp">31/05/2026 📅</div></div>
+    <div class="fld"><label>Cliente</label><div class="inp sel">Todos ▾</div></div>
+    <div class="sp"><button class="btn">Limpar</button><button class="btn pri">Aplicar</button></div>
+  </div>
+
+  <div class="big3">
+    <div class="bc"><div><div class="k">Total de pedidos</div><div class="v t-b">1.397</div></div><div class="ico ic-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div></div>
+    <div class="bc"><div><div class="k">Entregues</div><div class="v t-g">1.377</div><div class="c t-g">99% do total</div></div><div class="ico ic-g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div></div>
+    <div class="bc"><div><div class="k">Em Aberto</div><div class="v t-a">20</div><div class="c t-a">1% do total</div></div><div class="ico ic-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div></div>
+  </div>
+
+  <div class="panel">
+    <div class="ph">📦 Etapas — Em Aberto</div>
+    <div class="etapas">
+      <div class="ep a"><div class="t">Em Aberto</div><div class="n">20</div><div class="pc">100%</div></div>
+      <span class="arrow">→</span>
+      <div class="ep h"><div class="t">● Hub</div><div class="n">15</div><div class="pc">75%</div></div>
+      <div class="ep d"><div class="t">● Em Devol.</div><div class="n">5</div><div class="pc">25%</div></div>
+    </div>
+  </div>
+
+  <div class="cols3">
+    <!-- Situação do Prazo -->
+    <div class="panel" style="margin-top:0">
+      <div class="col-head">◷ Situação do Prazo <span class="r">20 em aberto</span></div>
+      <div class="col-sub">Clique em uma barra para filtrar</div>
+      <div class="prow"><div class="lab"><span>Vencidos</span><span class="n" style="color:var(--red)">20 · 100%</span></div><div class="track"><i style="width:100%;background:var(--red)"></i></div></div>
+      <div class="prow"><div class="lab"><span>Vence hoje</span><span class="n">0 · 0%</span></div><div class="track"><i style="width:0"></i></div></div>
+      <div class="prow"><div class="lab"><span>No prazo</span><span class="n">0 · 0%</span></div><div class="track" style="background:#f0fdf4"><i style="width:0"></i></div></div>
+      <div class="prow"><div class="lab"><span>Sem prazo</span><span class="n">0 · 0%</span></div><div class="track"><i style="width:0"></i></div></div>
+    </div>
+    <!-- Pareto por Unidade -->
+    <div class="panel pareto" style="margin-top:0">
+      <div class="col-head">⚠ Pareto — Em Aberto por Unidade <span class="r">5 unidades</span></div>
+      <div class="col-sub">Clique em uma barra para filtrar</div>
+      <div class="prow"><div class="lab"><span>TIJ</span><span><b>12</b> · 60% <span class="cum">▲60%</span></span></div><div class="track"><i style="width:100%;background:#f59e0b"></i></div></div>
+      <div class="prow"><div class="lab"><span>TJ1</span><span><b>3</b> · 15% <span class="cum">▲75%</span></span></div><div class="track"><i style="width:25%;background:#f59e0b"></i></div></div>
+      <div class="prow"><div class="lab"><span>TUB</span><span><b>3</b> · 15% <span class="cum">▲90%</span></span></div><div class="track"><i style="width:25%;background:#f59e0b"></i></div></div>
+      <div class="prow"><div class="lab"><span>CRI</span><span><b>1</b> · 5% <span class="cum">▲95%</span></span></div><div class="track"><i style="width:8%;background:#f59e0b"></i></div></div>
+      <div class="prow"><div class="lab"><span>SML</span><span><b>1</b> · 5% <span class="cum">▲100%</span></span></div><div class="track"><i style="width:8%;background:#f59e0b"></i></div></div>
+    </div>
+    <!-- Faixas de Movimentação -->
+    <div class="panel" style="margin-top:0">
+      <div class="col-head">◷ Faixas de Movimentação <span class="r">dias sem ocorrência</span></div>
+      <div class="col-sub">Pedidos em aberto agrupados por tempo parado</div>
+      <div class="prow"><div class="lab"><span>+10 dias</span><span class="n" style="color:#991b1b">20 · 100%</span></div><div class="track"><i style="width:100%;background:#991b1b"></i></div></div>
+      <div class="prow"><div class="lab"><span>6 – 10 dias</span><span class="n">0 · 0%</span></div><div class="track"><i style="width:0"></i></div></div>
+      <div class="prow"><div class="lab"><span>3 – 5 dias</span><span class="n">0 · 0%</span></div><div class="track"><i style="width:0"></i></div></div>
+      <div class="prow"><div class="lab"><span>0 – 2 dias</span><span class="n">0 · 0%</span></div><div class="track"><i style="width:0"></i></div></div>
+    </div>
+  </div>
+</body>
+</html>

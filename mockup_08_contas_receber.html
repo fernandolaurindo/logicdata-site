@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LogicBi — Contas a Receber (mockup demo)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f1f5f9;--card:#fff;--ink:#0f172a;--ink2:#334155;--muted:#64748b;--muted2:#94a3b8;
+    --line:#e2e8f0;--blue:#2563eb;--green:#16a34a;--red:#dc2626;--gold:#d97706;
+  }
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;-webkit-font-smoothing:antialiased;display:flex;min-height:100vh}
+
+  /* ── Sidebar ── */
+  .sidebar{width:228px;min-width:228px;background:#0f172a;display:flex;flex-direction:column}
+  .sb-brand{padding:20px 20px 14px;border-bottom:1px solid rgba(255,255,255,.07)}
+  .sb-brand .logo{font-size:22px;font-weight:900;letter-spacing:-.03em;color:#fff}
+  .sb-brand .sub{font-size:11px;color:#475569;margin-top:2px}
+  .sb-user{padding:13px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .sb-user .av{width:34px;height:34px;border-radius:9px;background:#1e40af;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+  .sb-user .name{font-size:13px;font-weight:600;color:#e2e8f0}
+  .sb-user .role{font-size:11px;color:#64748b}
+  .sb-section{padding:14px 20px 5px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#475569}
+  .sb-item{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13.5px;font-weight:500;color:#94a3b8;cursor:pointer}
+  .sb-item.on{color:#fff;background:rgba(37,99,235,.22);border-left:3px solid #3b82f6;padding-left:17px}
+  .sb-item .ic{width:17px;text-align:center;font-style:normal}
+
+  /* ── Main ── */
+  .main{flex:1;padding:28px 32px;overflow:auto}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+  h1{font-size:27px;font-weight:800;letter-spacing:-.02em}
+  .subt{color:var(--muted);font-size:14px;margin-top:3px}
+  .btn-pri{background:var(--blue);color:#fff;border:none;border-radius:10px;padding:11px 20px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap}
+
+  /* Cards */
+  .cards4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+  .sc{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px 18px;display:flex;align-items:flex-start;gap:13px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .sc .ic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+  .ic-sl{background:#f1f5f9}.ic-bl{background:#eff6ff}.ic-rd{background:#fef2f2}.ic-gr{background:#f0fdf4}
+  .sc .k{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .sc .v{font-size:20px;font-weight:800;letter-spacing:-.01em;margin:5px 0 3px}
+  .sc .c{font-size:12px;color:var(--muted)}
+  .t-rd{color:var(--red)}.t-bl{color:var(--blue)}.t-gr{color:var(--green)}.t-ink{color:var(--ink)}
+
+  /* Tabs */
+  .tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .tab{padding:7px 15px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--muted)}
+  .tab.on{background:#eff6ff;color:var(--blue);border-color:#bfdbfe}
+
+  /* Search row */
+  .srow{display:flex;gap:10px;margin-bottom:16px}
+  .srch{flex:1;border:1px solid var(--line);border-radius:9px;padding:9px 13px;font:inherit;font-size:14px;color:var(--muted2);background:#fff}
+  .dp{border:1px solid var(--line);border-radius:9px;padding:9px 13px;font:inherit;font-size:13px;color:var(--muted2);background:#fff;min-width:138px}
+
+  /* Table */
+  .tbl{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .tbl-hdr{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1px solid var(--line)}
+  .tbl-hdr .cnt{font-size:13px;font-weight:600;color:var(--muted)}
+  .tbl-hdr .exp{font-size:13px;color:var(--blue);font-weight:600}
+  table{width:100%;border-collapse:collapse}
+  th{padding:11px 14px;text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);background:#f8fafc}
+  td{padding:12px 14px;font-size:13.5px;color:var(--ink2);border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .dot-b{background:#3b82f6}.dot-g{background:#cbd5e1}
+  .venc{color:var(--red);font-weight:700}
+  .act{color:var(--blue);font-weight:600;cursor:pointer;white-space:nowrap}
+  b{color:var(--ink);font-weight:700}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="logo">LogicBi</div>
+    <div class="sub">Painel Operacional</div>
+  </div>
+  <div class="sb-user">
+    <div class="av">JS</div>
+    <div>
+      <div class="name">João Silva</div>
+      <div class="role">Master</div>
+    </div>
+  </div>
+  <div class="sb-item"><i class="ic">🏠</i> Início</div>
+  <div class="sb-section">Operacional</div>
+  <div class="sb-item"><i class="ic">📈</i> KPIs &amp; Performance</div>
+  <div class="sb-item"><i class="ic">🎯</i> Causa &amp; Ação</div>
+  <div class="sb-item"><i class="ic">🔗</i> Controle Operacional</div>
+  <div class="sb-item"><i class="ic">🔍</i> Consulta Pedido</div>
+  <div class="sb-section">Financeiro</div>
+  <div class="sb-item"><i class="ic">📄</i> Faturamento</div>
+  <div class="sb-item"><i class="ic">💸</i> Contas a Pagar</div>
+  <div class="sb-item on"><i class="ic">💰</i> Contas a Receber</div>
+  <div class="sb-item"><i class="ic">📊</i> DRE</div>
+  <div class="sb-item"><i class="ic">👤</i> Prestadores</div>
+  <div class="sb-section">Administração</div>
+</aside>
+
+<main class="main">
+  <div class="top">
+    <div>
+      <h1>Contas a Receber</h1>
+      <div class="subt">Fechamentos por cliente pagador</div>
+    </div>
+    <button class="btn-pri">📅 Gerar Recebimento</button>
+  </div>
+
+  <div class="cards4">
+    <div class="sc"><div class="ic ic-sl">📋</div><div><div class="k">A Faturar</div><div class="v t-ink">R$290.023,67</div><div class="c">7 sem NF</div></div></div>
+    <div class="sc"><div class="ic ic-bl">📤</div><div><div class="k">Em Cobrança</div><div class="v t-bl">R$249,93</div><div class="c">1 cliente</div></div></div>
+    <div class="sc"><div class="ic ic-rd">⚠️</div><div><div class="k">Vencido</div><div class="v t-rd">R$290.273,60</div><div class="c">8 clientes</div></div></div>
+    <div class="sc"><div class="ic ic-gr">✅</div><div><div class="k">Recebido</div><div class="v t-gr">R$0,00</div><div class="c">0 clientes</div></div></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on">Todos</div>
+    <div class="tab">A Faturar</div>
+    <div class="tab">NF Emitida</div>
+    <div class="tab">Boleto Enviado</div>
+    <div class="tab">Aguard. Pgto</div>
+    <div class="tab">Recebido</div>
+  </div>
+  <div class="srow">
+    <input class="srch" placeholder="🔍  Filtrar por cliente..." readonly>
+    <input class="dp" placeholder="dd/mm/aaaa" readonly>
+    <input class="dp" placeholder="dd/mm/aaaa" readonly>
+  </div>
+
+  <div class="tbl">
+    <div class="tbl-hdr">
+      <span class="cnt">8 registros</span>
+      <span class="exp">⬇ Exportar</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20px"></th>
+          <th>Cliente</th><th>Período</th><th>Pedidos</th>
+          <th>Bruto</th><th>Líquido</th><th>NF</th><th>Vencimento</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="dot dot-b"></span></td><td>Supermercados Alfa Ltda</td><td>01/05 → 31/05/2026</td><td>1</td><td>R$249,93</td><td><b>R$249,93</b></td><td>—</td><td><span class="venc">⚠ 22/07/2026</span></td><td><span class="act">Enviar Boleto ›</span></td></tr>
+        <tr><td><span class="dot dot-g"></span></td><td>Alfa E.A.M.P. Cia. Ltda</td><td>01/05 → 31/05/2026</td><td>635</td><td>R$86.931,47</td><td><b>R$86.931,47</b></td><td>—</td><td><span class="venc">⚠ 22/07/2026</span></td><td><span class="act">Emitir NF ›</span></td></tr>
+        <tr><td><span class="dot dot-g"></span></td><td>Distribuidora Maringá Ltda</td><td>01/05 → 31/05/2026</td><td>270</td><td>R$18.043,27</td><td><b>R$18.043,27</b></td><td>—</td><td><span class="venc">⚠ 22/07/2026</span></td><td><span class="act">Emitir NF ›</span></td></tr>
+        <tr><td><span class="dot dot-g"></span></td><td>Translog Serviços e Log...</td><td>01/05 → 31/05/2026</td><td>1</td><td>R$8.223,14</td><td><b>R$8.223,14</b></td><td>—</td><td><span class="venc">⚠ 22/07/2026</span></td><td><span class="act">Emitir NF ›</span></td></tr>
+        <tr><td><span class="dot dot-g"></span></td><td>Frigorífico Beta Com. e Ind...</td><td>01/05 → 31/05/2026</td><td>172</td><td>R$25.778,48</td><td><b>R$25.778,48</b></td><td>—</td><td><span class="venc">⚠ 22/07/2026</span></td><td><span class="act">Emitir NF ›</span></td></tr>
+        <tr><td><span class="dot dot-g"></span></td><td>Rapidlog Logística S.A.</td><td>01/05 → 31/05/2026</td><td>1</td><td>R$29.102,55</td><td><b>R$29.102,55</b></td><td>—</td><td><span class="venc">⚠ 22/07/2026</span></td><td><span class="act">Emitir NF ›</span></td></tr>
+        <tr><td><span class="dot dot-g"></span></td><td>Alimentar Alimentos Ltda</td><td>01/05 → 31/05/2026</td><td>245</td><td>R$121.694,21</td><td><b>R$121.694,21</b></td><td>—</td><td><span class="venc">⚠ 22/07/2026</span></td><td><span class="act">Emitir NF ›</span></td></tr>
+        <tr><td><span class="dot dot-g"></span></td><td>GreenLog Transportes Ltda</td><td>01/05 → 31/05/2026</td><td>58</td><td>R$48.322,18</td><td><b>R$48.322,18</b></td><td>—</td><td><span class="venc">⚠ 22/07/2026</span></td><td><span class="act">Emitir NF ›</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

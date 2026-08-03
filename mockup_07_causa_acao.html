@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LogicBi — Causa & Ação (mockup demo)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#f1f5f9;--card:#fff;--ink:#0f172a;--ink2:#334155;--muted:#64748b;--muted2:#94a3b8;
+    --line:#e2e8f0;--blue:#2563eb;--green:#16a34a;--red:#dc2626;--gold:#d97706;}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;-webkit-font-smoothing:antialiased;padding:30px 34px}
+  .top{display:flex;justify-content:space-between;align-items:flex-start}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.02em}
+  .subt{color:var(--muted);font-size:15px;margin-top:2px}
+  .newp{background:var(--blue);color:#fff;border:none;border-radius:10px;padding:12px 20px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 6px 16px rgba(37,99,235,.3)}
+
+  .tabs{display:flex;gap:26px;border-bottom:1px solid var(--line);margin-top:22px}
+  .tab{padding:12px 2px;font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+  .tab.on{color:var(--blue);border-bottom-color:var(--blue)}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+  .st{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .st.red{border:1px solid #fecaca;background:#fef6f6}
+  .st .k{font-size:12px;font-weight:700;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+  .st .v{font-size:38px;font-weight:800;letter-spacing:-.02em;margin:6px 0 4px}
+  .st .c{font-size:13px;color:var(--muted)}
+  .t-red{color:var(--red)}.t-ink{color:var(--ink)}
+
+  .filters{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-top:18px;display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .fld{display:flex;flex-direction:column;gap:6px}
+  .fld label{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+  .inp{border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px;color:var(--ink2);min-width:120px;display:flex;justify-content:space-between;gap:8px}
+  .inp.sel{color:var(--muted2)}
+  .x{align-self:center;color:var(--muted2);padding-bottom:9px}
+  .toggle{margin-left:auto;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px;font-weight:600}
+  .sw{width:38px;height:22px;border-radius:99px;background:#cbd5e1;position:relative}
+  .sw::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff}
+  .segbtns{display:flex;gap:10px;margin-top:14px}
+  .sb{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 18px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer}
+  .sb.on{background:var(--blue);border-color:var(--blue);color:#fff}
+
+  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:18px;box-shadow:0 1px 3px rgba(15,23,42,.04)}
+  .chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .chart-head .l{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:700}
+  .chart-head .l .muted{color:var(--muted);font-weight:500;font-size:14px}
+  .legend{display:flex;gap:18px;font-size:12.5px;color:var(--muted);font-weight:600}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .legend .line-k{width:16px;height:3px;border-radius:2px;background:var(--blue)}
+  #chart{width:100%;height:440px}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div><h1>Causa &amp; Ação</h1><div class="subt">Estratificação de atrasos, análise de causa e plano de ação</div></div>
+    <button class="newp">＋ Novo Plano</button>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on">Estratificação</div>
+    <div class="tab">Planos de Ação (1)</div>
+    <div class="tab">Histórico</div>
+  </div>
+
+  <div class="stats">
+    <div class="st"><div class="k">Total de atrasos</div><div class="v t-red">274</div><div class="c">24 CDs no período</div></div>
+    <div class="st"><div class="k">Atrasos LM (elegível)</div><div class="v t-red">77</div><div class="c">Chegaram no CD dentro do prazo</div></div>
+    <div class="st red"><div class="k">Entregadores fora da meta</div><div class="v t-red">18</div><div class="c">Meta OTD: 85%</div></div>
+  </div>
+
+  <div class="filters">
+    <div class="fld"><label>Prev. entrega</label><div class="inp">01/05/2026 📅</div></div>
+    <div class="x">até</div>
+    <div class="fld"><label>&nbsp;</label><div class="inp">31/05/2026 📅</div></div>
+    <div class="fld"><label>Cliente</label><div class="inp sel">Todos ▾</div></div>
+    <div class="toggle"><span class="sw"></span>◎ Ocultar na meta</div>
+  </div>
+  <div class="segbtns">
+    <button class="sb on">Pareto Geral (todos os atrasos)</button>
+    <button class="sb">Pareto LM (elegível mas atrasou)</button>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="l">📊 Atrasos por Entregador <span class="muted">— exibindo top 15</span></div>
+      <div class="legend"><span><i style="background:#ef7d7d"></i>Fora da meta</span><span><i style="background:#4ade80"></i>Na meta</span><span><i class="line-k"></i>% acumulada</span></div>
+    </div>
+    <svg id="chart" viewBox="0 0 1400 440" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+
+<script>
+  const data = [
+    {n:'Anderson Souza', p:'RKT7A21', v:55, meta:true},
+    {n:'Rafael Lima',    p:'QMV4C88', v:29, meta:false},
+    {n:'Bruno Alves',    p:'LPD2E15', v:27, meta:true},
+    {n:'Tiago Rocha',    p:'HGF9B30', v:17, meta:true},
+    {n:'Marcos Dias',    p:'NBX5D42', v:15, meta:false},
+    {n:'Felipe Cardoso', p:'JTR6A09', v:13, meta:false},
+    {n:'Diego Nunes',    p:'SVK3C71', v:13, meta:false},
+    {n:'Paulo Mendes',   p:'MED1F54', v:12, meta:false},
+    {n:'Lucas Farias',   p:'CPN8B26', v:12, meta:false},
+    {n:'André Pinto',    p:'RQL4D63', v:12, meta:false},
+    {n:'Gustavo Reis',   p:'FTB7C18', v:11, meta:false},
+    {n:'Rodrigo Melo',   p:'ZHK2A95', v:11, meta:false},
+    {n:'Vinícius Sá',    p:'DWP5E37', v:10, meta:false},
+    {n:'Carlos Teles',   p:'GNM9B04', v:7,  meta:false},
+    {n:'Márcio Luz',     p:'BXR3C82', v:5,  meta:false},
+  ];
+  const TOTAL = 274;
+  const NS='http://www.w3.org/2000/svg';
+  const svg=document.getElementById('chart');
+  const W=1400,H=440, mL=48, mR=54, mT=24, mB=96;
+  const plotW=W-mL-mR, plotH=H-mT-mB;
+  const maxV=55;
+  const x0=mL, y0=mT+plotH;
+  const bw=plotW/data.length;
+  function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;}
+
+  // grid + left axis labels (count)
+  [0,14,28,41,55].forEach(val=>{
+    const y=y0-(val/maxV)*plotH;
+    svg.appendChild(el('line',{x1:mL,y1:y,x2:W-mR,y2:y,stroke:'#eef2f7','stroke-width':1}));
+    const t=el('text',{x:mL-10,y:y+4,'text-anchor':'end','font-size':12,fill:'#94a3b8','font-family':'Inter'});t.textContent=val;svg.appendChild(t);
+  });
+  // right axis labels (%)
+  [0,25,50,75,100].forEach(pc=>{
+    const y=y0-(pc/100)*plotH;
+    const t=el('text',{x:W-mR+10,y:y+4,'font-size':12,fill:'#2563eb','font-family':'Inter'});t.textContent=pc+'%';svg.appendChild(t);
+  });
+  // meta line 80%
+  const ym=y0-(80/100)*plotH;
+  svg.appendChild(el('line',{x1:mL,y1:ym,x2:W-mR,y2:ym,stroke:'#cbd5e1','stroke-width':1.5,'stroke-dasharray':'6 5'}));
+  const mt=el('text',{x:W-mR-4,y:ym-6,'text-anchor':'end','font-size':11,fill:'#94a3b8','font-family':'Inter','font-weight':600});mt.textContent='Meta 80%';svg.appendChild(mt);
+
+  // bars + value labels + x labels
+  let cum=0; const pts=[];
+  data.forEach((d,i)=>{
+    const bx=x0+i*bw, pad=bw*0.18, w=bw-pad*2;
+    const bh=(d.v/maxV)*plotH, by=y0-bh;
+    svg.appendChild(el('rect',{x:bx+pad,y:by,width:w,height:bh,rx:5,fill:d.meta?'#4ade80':'#ef7d7d'}));
+    const vl=el('text',{x:bx+bw/2,y:by-8,'text-anchor':'middle','font-size':13,fill:'#334155','font-weight':700,'font-family':'Inter'});vl.textContent=d.v;svg.appendChild(vl);
+    // cumulative point
+    cum+=d.v; const pcy=y0-(cum/TOTAL*100/100)*plotH; pts.push([bx+bw/2,pcy]);
+    // x labels: name + plate rotated
+    const g=el('g',{transform:`translate(${bx+bw/2},${y0+14}) rotate(-38)`});
+    const t1=el('text',{x:0,y:0,'text-anchor':'end','font-size':12.5,fill:'#334155','font-weight':600,'font-family':'Inter'});t1.textContent=d.n;
+    const t2=el('text',{x:0,y:14,'text-anchor':'end','font-size':11,fill:'#94a3b8','font-family':'Inter','letter-spacing':'.5px'});t2.textContent=d.p;
+    g.appendChild(t1);g.appendChild(t2);svg.appendChild(g);
+  });
+  // cumulative line
+  let dpath='M '+pts.map(p=>p[0]+' '+p[1]).join(' L ');
+  svg.appendChild(el('path',{d:dpath,fill:'none',stroke:'#2563eb','stroke-width':2.5}));
+  pts.forEach(p=>svg.appendChild(el('circle',{cx:p[0],cy:p[1],r:4.5,fill:'#2563eb'})));
+</script>
+</body>
+</html>
