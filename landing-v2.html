@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logic Data | BI e Dados para Logística</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #090D16; }
+    h1,h2,h3,h4,h5 { font-family: 'Outfit', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card-glass {
+      background: rgba(15,23,42,0.55);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(51,65,85,0.45);
+    }
+    .hero-glow {
+      background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,0.18) 0%, transparent 70%);
+    }
+    .emerald-glow { box-shadow: 0 0 28px rgba(16,185,129,0.35); }
+    .dot-grid {
+      background-image: radial-gradient(rgba(99,102,241,0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .faq-answer { max-height:0; overflow:hidden; transition: max-height .32s ease-out; }
+    .faq-answer.open { max-height: 400px; }
+    .chevron-icon { transition: transform .28s ease; }
+    .chevron-icon.rotated { transform: rotate(180deg); }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .fade-up { animation: fadeUp .6s ease-out both; }
+    .fade-up-d1 { animation-delay:.1s; }
+    .fade-up-d2 { animation-delay:.22s; }
+    .fade-up-d3 { animation-delay:.34s; }
+  </style>
+</head>
+<body class="text-zinc-100 antialiased">
+
+<!-- ════════════════════════════════════════
+     HEADER
+════════════════════════════════════════ -->
+<header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+        style="background:rgba(9,13,22,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(51,65,85,.3);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+
+    <!-- Logo -->
+    <a href="#" class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center">
+        <span class="mono text-white font-bold text-xs">LD</span>
+      </div>
+      <span class="font-extrabold text-lg tracking-tight text-zinc-100">Logic<span class="text-blue-400">Data</span></span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-zinc-400">
+      <a href="#servicos"  class="hover:text-zinc-100 transition-colors">Serviços</a>
+      <a href="#dores"     class="hover:text-zinc-100 transition-colors">Como Ajudamos</a>
+      <a href="#para-quem" class="hover:text-zinc-100 transition-colors">Para Quem</a>
+      <a href="#processo"  class="hover:text-zinc-100 transition-colors">Como Funciona</a>
+      <a href="#faq"       class="hover:text-zinc-100 transition-colors">FAQ</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="https://wa.me/5551992113434?text=Ol%C3%A1%21+Gostaria+de+solicitar+um+diagn%C3%B3stico+gratuito+da+Logic+Data."
+         target="_blank" rel="noopener noreferrer"
+         class="hidden sm:inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-all duration-200 hover:scale-105 emerald-glow">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        Diagnóstico Gratuito
+      </a>
+      <button id="menu-btn" class="lg:hidden p-2 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-slate-800 transition-colors">
+        <i data-lucide="menu" class="w-5 h-5" id="menu-icon-el"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden lg:hidden px-4 pb-4 space-y-1 border-t border-slate-800/50">
+    <a href="#servicos"  class="block py-2.5 px-3 rounded-lg text-zinc-300 hover:bg-slate-800 text-sm transition-colors">Serviços</a>
+    <a href="#dores"     class="block py-2.5 px-3 rounded-lg text-zinc-300 hover:bg-slate-800 text-sm transition-colors">Como Ajudamos</a>
+    <a href="#para-quem" class="block py-2.5 px-3 rounded-lg text-zinc-300 hover:bg-slate-800 text-sm transition-colors">Para Quem</a>
+    <a href="#processo"  class="block py-2.5 px-3 rounded-lg text-zinc-300 hover:bg-slate-800 text-sm transition-colors">Como Funciona</a>
+    <a href="#faq"       class="block py-2.5 px-3 rounded-lg text-zinc-300 hover:bg-slate-800 text-sm transition-colors">FAQ</a>
+    <a href="https://wa.me/5551992113434?text=Ol%C3%A1%21+Gostaria+de+solicitar+um+diagn%C3%B3stico+gratuito+da+Logic+Data."
+       target="_blank" rel="noopener noreferrer"
+       class="flex items-center justify-center gap-2 bg-emerald-500 text-white font-bold px-4 py-3 rounded-lg mt-2 text-sm">
+      <i data-lucide="message-circle" class="w-4 h-4"></i>
+      Diagnóstico Gratuito
+    </a>
+  </div>
+</header>
+
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section class="relative min-h-screen flex items-start pt-16 dot-grid overflow-hidden">
+  <div class="absolute inset-0 hero-glow pointer-events-none"></div>
+  <div class="absolute top-1/3 right-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20 lg:pt-16 lg:pb-28 w-full">
+    <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+      <!-- Copy -->
+      <div class="space-y-8">
+        <div class="inline-flex items-center gap-2.5 bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-semibold px-4 py-2 rounded-full fade-up">
+          <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+          Consultoria em BI para Logística
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold leading-[1.1] text-zinc-50 fade-up fade-up-d1">
+          <span class="gradient-text block mb-3">Dados que geram resultado.</span>
+          Elimine o caos das planilhas e transforme os dados da sua operação logística em
+          <span class="gradient-text"> informações claras, disponíveis e processos que se atualizam sozinhos.</span>
+        </h1>
+
+        <p class="text-zinc-400 text-lg leading-relaxed fade-up fade-up-d2">
+          Implementamos soluções de BI sob medida para transportadoras e operações de supply chain — dashboards claros, dados automatizados e <strong class="text-zinc-300 font-medium">visibilidade total para quem toma decisões.</strong>
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 fade-up fade-up-d3">
+          <a href="https://wa.me/5551992113434?text=Ol%C3%A1%21+Gostaria+de+solicitar+um+diagn%C3%B3stico+gratuito+da+Logic+Data."
+             target="_blank" rel="noopener noreferrer"
+             class="emerald-glow inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-4 rounded-xl text-base transition-all duration-200 hover:scale-105">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+            Quero um Diagnóstico Gratuito
+          </a>
+          <a href="#servicos"
+             class="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-zinc-300 hover:text-zinc-100 font-semibold px-8 py-4 rounded-xl text-base transition-all duration-200">
+            <i data-lucide="layers" class="w-5 h-5"></i>
+            Conhecer os Serviços
+          </a>
+        </div>
+
+        <!-- Social proof -->
+        <div class="flex items-center gap-4 pt-2 fade-up fade-up-d3">
+          <div class="flex -space-x-2">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-[#090D16] flex items-center justify-center text-xs font-bold">R</div>
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 border-2 border-[#090D16] flex items-center justify-center text-xs font-bold">M</div>
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-[#090D16] flex items-center justify-center text-xs font-bold">C</div>
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-[#090D16] flex items-center justify-center text-xs font-bold">A</div>
+          </div>
+          <p class="text-sm text-zinc-400"><span class="text-zinc-100 font-semibold">+20 operações logísticas</span> com dados claros e dashboards automatizados</p>
+        </div>
+      </div>
+
+      <!-- Dashboard mockup -->
+      <div class="relative">
+        <div class="card-glass rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/10">
+          <!-- Window chrome -->
+          <div class="flex items-center gap-2 px-5 py-3.5 border-b border-slate-700/50 bg-slate-900/40">
+            <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+            <div class="w-3 h-3 rounded-full bg-amber-500/60"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-500/60"></div>
+            <span class="mono text-zinc-500 text-xs ml-3">Dashboard Logístico — Logic Data BI</span>
+          </div>
+
+          <!-- KPIs -->
+          <div class="p-5 space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-slate-900/80 rounded-xl p-4 border border-slate-700/40">
+                <div class="text-zinc-500 text-xs font-medium mb-1">OTIF</div>
+                <div class="text-2xl font-extrabold text-emerald-400">94,7<span class="text-base">%</span></div>
+                <div class="flex items-center gap-1 mt-1">
+                  <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span class="text-emerald-400 text-xs">+3,2% vs mês anterior</span>
+                </div>
+              </div>
+              <div class="bg-slate-900/80 rounded-xl p-4 border border-slate-700/40">
+                <div class="text-zinc-500 text-xs font-medium mb-1">Custo / KM</div>
+                <div class="text-2xl font-extrabold text-blue-400">R$ 3,42</div>
+                <div class="flex items-center gap-1 mt-1">
+                  <i data-lucide="trending-down" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span class="text-emerald-400 text-xs">-8,1% vs meta</span>
+                </div>
+              </div>
+              <div class="bg-slate-900/80 rounded-xl p-4 border border-slate-700/40">
+                <div class="text-zinc-500 text-xs font-medium mb-1">Margem Operacional</div>
+                <div class="text-2xl font-extrabold text-amber-400">18,3<span class="text-base">%</span></div>
+                <div class="flex items-center gap-1 mt-1">
+                  <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span class="text-emerald-400 text-xs">Acima da meta</span>
+                </div>
+              </div>
+              <div class="bg-slate-900/80 rounded-xl p-4 border border-slate-700/40">
+                <div class="text-zinc-500 text-xs font-medium mb-1">Entregas no Prazo</div>
+                <div class="text-2xl font-extrabold text-zinc-100">847<span class="text-base text-zinc-500">/897</span></div>
+                <div class="flex items-center gap-1 mt-1">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span class="text-emerald-400 text-xs">94,4% de aproveitamento</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="bg-slate-900/80 rounded-xl p-4 border border-slate-700/40">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-zinc-300 text-xs font-semibold">Custo de Frete por Rota — Últimos 6 Meses</span>
+                <span class="mono text-zinc-500 text-xs">2025</span>
+              </div>
+              <div class="space-y-2.5">
+                <div class="flex items-center gap-3">
+                  <span class="mono text-zinc-500 text-xs w-5">SP</span>
+                  <div class="flex-1 bg-slate-800 rounded-full h-2"><div class="bg-blue-500 h-2 rounded-full" style="width:78%"></div></div>
+                  <span class="text-zinc-400 text-xs w-14 text-right">R$ 4,2k</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="mono text-zinc-500 text-xs w-5">RJ</span>
+                  <div class="flex-1 bg-slate-800 rounded-full h-2"><div class="bg-emerald-500 h-2 rounded-full" style="width:62%"></div></div>
+                  <span class="text-zinc-400 text-xs w-14 text-right">R$ 3,1k</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="mono text-zinc-500 text-xs w-5">MG</span>
+                  <div class="flex-1 bg-slate-800 rounded-full h-2"><div class="bg-amber-500 h-2 rounded-full" style="width:45%"></div></div>
+                  <span class="text-zinc-400 text-xs w-14 text-right">R$ 2,4k</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="mono text-zinc-500 text-xs w-5">RS</span>
+                  <div class="flex-1 bg-slate-800 rounded-full h-2"><div class="bg-purple-500 h-2 rounded-full" style="width:35%"></div></div>
+                  <span class="text-zinc-400 text-xs w-14 text-right">R$ 1,8k</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between text-xs text-zinc-500">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                Atualizado em tempo real
+              </span>
+              <span class="mono">07:42:18</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge -->
+        <div class="absolute -top-3 -right-3 bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg shadow-emerald-500/40 rotate-3">
+          Assim fica sua operação
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     MÉTRICAS
+════════════════════════════════════════ -->
+<section class="border-y border-slate-800/60 bg-slate-900/25">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="text-center">
+        <div class="text-3xl lg:text-4xl font-extrabold text-emerald-400">+500</div>
+        <div class="text-zinc-400 text-sm mt-1">Operações Atendidas</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl lg:text-4xl font-extrabold text-blue-400">-40%</div>
+        <div class="text-zinc-400 text-sm mt-1">Tempo em Relatórios</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl lg:text-4xl font-extrabold text-amber-400">100%</div>
+        <div class="text-zinc-400 text-sm mt-1">Casos Reais de Logística</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl lg:text-4xl font-extrabold text-zinc-100">7 dias</div>
+        <div class="text-zinc-400 text-sm mt-1">Diagnóstico Inicial Gratuito</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     DOR — ANTES VS DEPOIS
+════════════════════════════════════════ -->
+<section id="dores" class="py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-amber-400 text-sm font-semibold uppercase tracking-widest">Reconhece essa realidade?</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-50">
+        A diferença entre uma operação que<br class="hidden lg:block">
+        <span class="gradient-text"> cresce com dados</span> e uma que sobrevive no achismo
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      <!-- Antes -->
+      <div class="rounded-2xl border border-red-500/20 bg-red-500/5 p-8">
+        <div class="flex items-center gap-3 mb-7">
+          <div class="w-9 h-9 rounded-full bg-red-500/15 flex items-center justify-center">
+            <i data-lucide="x" class="w-5 h-5 text-red-400"></i>
+          </div>
+          <h3 class="text-lg font-bold text-red-400">Operação Tradicional</h3>
+        </div>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">Relatórios montados à mão em planilhas que demoram horas — e chegam sempre atrasados</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">Decisões no "achismo" sem dados concretos de OTIF, custo por KM ou margem real</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">Reuniões improdutivas porque ninguém sabe ao certo onde estão os gargalos</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">Margens espremidas por custos que poderiam ser controlados se fossem visíveis</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">Dependência total de analistas ou TI para qualquer visualização de dados</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Depois -->
+      <div class="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-8">
+        <div class="flex items-center gap-3 mb-7">
+          <div class="w-9 h-9 rounded-full bg-emerald-500/15 flex items-center justify-center">
+            <i data-lucide="check" class="w-5 h-5 text-emerald-400"></i>
+          </div>
+          <h3 class="text-lg font-bold text-emerald-400">Operação Logic Data</h3>
+        </div>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">Dashboard atualizado automaticamente, visível em qualquer tela em segundos</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">KPIs de OTIF, custo por KM, nível de serviço e DRE logístico na palma da mão</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">Reuniões produtivas com dados precisos que apontam onde agir e o impacto financeiro</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">Controle real de custos com alertas automáticos de desvio antes de virar prejuízo</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm leading-relaxed">Autonomia total para criar, atualizar e compartilhar relatórios sem depender de ninguém</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="https://wa.me/5551992113434?text=Ol%C3%A1%21+Gostaria+de+solicitar+um+diagn%C3%B3stico+gratuito+da+Logic+Data."
+         target="_blank" rel="noopener noreferrer"
+         class="emerald-glow inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 py-4 rounded-xl text-base transition-all duration-200 hover:scale-105">
+        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        Quero um Diagnóstico Gratuito
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     SERVIÇOS
+════════════════════════════════════════ -->
+<section id="servicos" class="py-24 bg-slate-900/25">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-blue-400 text-sm font-semibold uppercase tracking-widest">Como Atuamos</span>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-50">
+        O que entregamos para a <span class="gradient-text">sua operação</span>
+      </h2>
+      <p class="text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+        Do diagnóstico à automação — soluções práticas e mensuráveis, construídas com os dados reais da sua operação logística.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card-glass rounded-2xl p-6 space-y-4 group hover:border-blue-500/40 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/12 flex items-center justify-center group-hover:bg-blue-500/22 transition-colors">
+          <i data-lucide="search" class="w-6 h-6 text-blue-400"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-zinc-100 mb-2">Diagnóstico de Dados</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Mapeamos as fontes de dados da sua operação e identificamos onde estão os gargalos, as perdas e as maiores oportunidades de melhoria.</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-2xl p-6 space-y-4 group hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/12 flex items-center justify-center group-hover:bg-emerald-500/22 transition-colors">
+          <i data-lucide="layout-dashboard" class="w-6 h-6 text-emerald-400"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-zinc-100 mb-2">Dashboards Logísticos</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Criamos painéis sob medida com OTIF, custo por KM, nível de serviço e margem operacional — atualizados automaticamente, sem intervenção manual.</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-2xl p-6 space-y-4 group hover:border-amber-500/40 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/12 flex items-center justify-center group-hover:bg-amber-500/22 transition-colors">
+          <i data-lucide="target" class="w-6 h-6 text-amber-400"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-zinc-100 mb-2">KPIs e Indicadores</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Definimos e implementamos os indicadores certos para a sua realidade — com metas, alertas de desvio e visibilidade em tempo real para toda a equipe.</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-2xl p-6 space-y-4 group hover:border-purple-500/40 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-purple-500/12 flex items-center justify-center group-hover:bg-purple-500/22 transition-colors">
+          <i data-lucide="receipt" class="w-6 h-6 text-purple-400"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-zinc-100 mb-2">Análise de Custos de Frete</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Analisamos custos rota a rota, por modal e cliente. Entregamos visibilidade para negociar melhor e eliminar despesas que antes passavam despercebidas.</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-2xl p-6 space-y-4 group hover:border-blue-500/40 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/12 flex items-center justify-center group-hover:bg-blue-500/22 transition-colors">
+          <i data-lucide="trending-up" class="w-6 h-6 text-blue-400"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-zinc-100 mb-2">DRE Logístico em BI</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Construímos o DRE da sua operação em Power BI — receita, custo variável, margem de contribuição e EBITDA logístico com dados precisos e atualizados.</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-2xl p-6 space-y-4 group hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/12 flex items-center justify-center group-hover:bg-emerald-500/22 transition-colors">
+          <i data-lucide="zap" class="w-6 h-6 text-emerald-400"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-zinc-100 mb-2">Automação e Manutenção</h3>
+          <p class="text-zinc-400 text-sm leading-relaxed">Automatizamos a atualização dos dados e garantimos que a solução continue funcionando — você foca na operação, os dashboards se atualizam sozinhos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     PARA QUEM É / NÃO É
+════════════════════════════════════════ -->
+<section id="para-quem" class="py-24">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-emerald-400 text-sm font-semibold uppercase tracking-widest">Filtro de Qualificação</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-zinc-50">
+        Essa consultoria foi feita <span class="gradient-text">para você?</span>
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2 mb-4">
+          <i data-lucide="check-circle" class="w-5 h-5"></i> É para você se...
+        </h3>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm">Você é empresário, sócio ou diretor de uma transportadora ou operação logística</span>
+          </div>
+          <div class="flex items-start gap-3 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm">Você gerencia operações de frete, distribuição, armazenagem ou supply chain</span>
+          </div>
+          <div class="flex items-start gap-3 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm">Você quer parar de tomar decisões no "achismo" e ter dados concretos da operação</span>
+          </div>
+          <div class="flex items-start gap-3 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm">Você usa Excel hoje mas sabe que pode evoluir para algo mais poderoso e automatizado</span>
+          </div>
+          <div class="flex items-start gap-3 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm">Você quer autonomia para criar e atualizar relatórios sem depender de TI</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-base font-bold text-red-400 flex items-center gap-2 mb-4">
+          <i data-lucide="x-circle" class="w-5 h-5"></i> Não é para você se...
+        </h3>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3 p-4 rounded-xl bg-red-500/5 border border-red-500/15">
+            <i data-lucide="x" class="w-4 h-4 text-red-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm">Você busca uma solução genérica de prateleira sem comprometimento com resultado prático</span>
+          </div>
+          <div class="flex items-start gap-3 p-4 rounded-xl bg-red-500/5 border border-red-500/15">
+            <i data-lucide="x" class="w-4 h-4 text-red-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm">Você não tem nenhum contato com operação logística ou dados de transporte</span>
+          </div>
+          <div class="flex items-start gap-3 p-4 rounded-xl bg-red-500/5 border border-red-500/15">
+            <i data-lucide="x" class="w-4 h-4 text-red-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm">Você espera resultados sem abertura para compartilhar dados e processos com a consultoria</span>
+          </div>
+          <div class="flex items-start gap-3 p-4 rounded-xl bg-red-500/5 border border-red-500/15">
+            <i data-lucide="x" class="w-4 h-4 text-red-400 mt-0.5 shrink-0"></i>
+            <span class="text-zinc-300 text-sm">Você não tem interesse em usar dados para reduzir custos ou aumentar margem operacional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     AUTORIDADE
+════════════════════════════════════════ -->
+<section class="py-24 bg-slate-900/25">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+      <div class="space-y-6">
+        <span class="text-blue-400 text-sm font-semibold uppercase tracking-widest">Quem está por trás</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-zinc-50">
+          Especialistas em <span class="gradient-text">dados para logística</span>
+        </h2>
+        <p class="text-zinc-400 leading-relaxed">
+          A Logic Data nasceu da combinação de experiência real em operações logísticas com profundidade técnica em Business Intelligence. Não entregamos relatórios avulsos — construímos inteligência de dados que fica na sua empresa e evolui com ela.
+        </p>
+        <p class="text-zinc-400 leading-relaxed">
+          Cada projeto começa com um diagnóstico real da operação. Só então projetamos e implementamos as soluções que fazem sentido para o seu contexto — sem pacotes genéricos e sem dependência contínua da nossa parte.
+        </p>
+        <div class="grid grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-slate-800/50 border border-slate-700/40 text-center">
+            <div class="text-2xl font-extrabold text-blue-400">+500</div>
+            <div class="text-zinc-400 text-xs mt-1">Operações Atendidas</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-800/50 border border-slate-700/40 text-center">
+            <div class="text-2xl font-extrabold text-emerald-400">+100</div>
+            <div class="text-zinc-400 text-xs mt-1">Dashboards Implementados</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-800/50 border border-slate-700/40 text-center">
+            <div class="text-2xl font-extrabold text-amber-400">4.9★</div>
+            <div class="text-zinc-400 text-xs mt-1">Avaliação Média</div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-800/50 border border-slate-700/40 text-center">
+            <div class="text-2xl font-extrabold text-zinc-100">100%</div>
+            <div class="text-zinc-400 text-xs mt-1">Foco em Logística</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="card-glass rounded-2xl p-6 flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center shrink-0">
+            <i data-lucide="database" class="w-6 h-6 text-blue-400"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-zinc-100 mb-1">Implementação com Dados Reais</h4>
+            <p class="text-zinc-400 text-sm leading-relaxed">Cada projeto usa os dados reais da sua operação — sem datasets fictícios ou soluções de prateleira que não se encaixam na sua realidade.</p>
+          </div>
+        </div>
+        <div class="card-glass rounded-2xl p-6 flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/15 flex items-center justify-center shrink-0">
+            <i data-lucide="graduation-cap" class="w-6 h-6 text-emerald-400"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-zinc-100 mb-1">Foco em Resultado, Não em Jargão</h4>
+            <p class="text-zinc-400 text-sm leading-relaxed">Trabalhamos com a linguagem do gestor: custo, margem, OTIF e prazo. Sem termos técnicos desnecessários para quem precisa decidir, não programar.</p>
+          </div>
+        </div>
+        <div class="card-glass rounded-2xl p-6 flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/15 flex items-center justify-center shrink-0">
+            <i data-lucide="award" class="w-6 h-6 text-amber-400"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-zinc-100 mb-1">A Solução Fica com Você</h4>
+            <p class="text-zinc-400 text-sm leading-relaxed">Toda a infraestrutura de dados, dashboards e automações entregues pertencem à sua empresa — sem dependência contínua da Logic Data para funcionar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     COMO FUNCIONA
+════════════════════════════════════════ -->
+<section id="processo" class="py-24 dot-grid">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14 space-y-4">
+      <span class="text-amber-400 text-sm font-semibold uppercase tracking-widest">Como Funciona</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-zinc-50">
+        Do diagnóstico à operação rodando: <span class="gradient-text">simples assim</span>
+      </h2>
+    </div>
+
+    <div class="grid lg:grid-cols-5 gap-8 items-start">
+      <!-- Etapas -->
+      <div class="lg:col-span-3 space-y-3">
+        <div class="flex items-start gap-3 p-4 card-glass rounded-xl">
+          <div class="w-9 h-9 rounded-lg bg-blue-500/20 flex items-center justify-center shrink-0 text-blue-400 font-bold text-sm">1</div>
+          <div>
+            <div class="text-zinc-100 text-sm font-semibold">Diagnóstico Inicial Gratuito</div>
+            <div class="text-zinc-500 text-xs mt-0.5">Primeira conversa para mapear sua operação, entender os dados disponíveis e identificar as maiores oportunidades</div>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-4 card-glass rounded-xl">
+          <div class="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-400 font-bold text-sm">2</div>
+          <div>
+            <div class="text-zinc-100 text-sm font-semibold">Proposta Personalizada</div>
+            <div class="text-zinc-500 text-xs mt-0.5">Apresentamos um plano de ação com escopo, prazos e investimento — sem surpresas e sem compromisso imediato</div>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-4 card-glass rounded-xl">
+          <div class="w-9 h-9 rounded-lg bg-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 font-bold text-sm">3</div>
+          <div>
+            <div class="text-zinc-100 text-sm font-semibold">Implementação dos Dashboards</div>
+            <div class="text-zinc-500 text-xs mt-0.5">Desenvolvemos as soluções de BI configuradas para a realidade da sua operação, com os seus dados reais</div>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-4 card-glass rounded-xl">
+          <div class="w-9 h-9 rounded-lg bg-purple-500/20 flex items-center justify-center shrink-0 text-purple-400 font-bold text-sm">4</div>
+          <div>
+            <div class="text-zinc-100 text-sm font-semibold">Capacitação da Equipe</div>
+            <div class="text-zinc-500 text-xs mt-0.5">Preparamos sua equipe para interpretar e utilizar os dados no dia a dia — autonomia total para quem vai usar</div>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-4 card-glass rounded-xl">
+          <div class="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-400 font-bold text-sm">5</div>
+          <div>
+            <div class="text-zinc-100 text-sm font-semibold">Suporte e Evolução</div>
+            <div class="text-zinc-500 text-xs mt-0.5">Acompanhamento pós-entrega para garantir que os dashboards continuem gerando valor à medida que sua operação cresce</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA card -->
+      <div class="lg:col-span-2 sticky top-24">
+        <div class="rounded-2xl border border-emerald-500/25 bg-gradient-to-b from-slate-900/90 to-slate-900/70 p-8 text-center space-y-6 shadow-2xl shadow-emerald-500/10">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 flex items-center justify-center mx-auto mb-4">
+              <i data-lucide="message-circle" class="w-7 h-7 text-emerald-400"></i>
+            </div>
+            <div class="text-zinc-100 font-extrabold text-xl mb-1">Diagnóstico Gratuito</div>
+            <div class="text-zinc-400 text-sm">Sem compromisso. Sem custo. 30 minutos.</div>
+          </div>
+          <a href="https://wa.me/5551992113434?text=Ol%C3%A1%21+Gostaria+de+solicitar+um+diagn%C3%B3stico+gratuito+da+Logic+Data."
+             target="_blank" rel="noopener noreferrer"
+             class="emerald-glow flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-4 rounded-xl text-base transition-all duration-200 hover:scale-105 w-full">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+            Quero Agendar Agora
+          </a>
+          <div class="border-t border-slate-700/50 pt-4 space-y-2 text-left">
+            <div class="flex items-center gap-2 text-zinc-400 text-xs"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>Mapeamento da sua operação atual</div>
+            <div class="flex items-center gap-2 text-zinc-400 text-xs"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>Identificação das maiores oportunidades</div>
+            <div class="flex items-center gap-2 text-zinc-400 text-xs"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>Recomendação de solução sem custo</div>
+            <div class="flex items-center gap-2 text-zinc-400 text-xs"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>Sem compromisso de contratação</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     DEPOIMENTOS
+════════════════════════════════════════ -->
+<section id="depoimentos" class="py-24 bg-slate-900/25">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-emerald-400 text-sm font-semibold uppercase tracking-widest">Prova Social</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-zinc-50">
+        O que nossos clientes estão <span class="gradient-text">conquistando</span>
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="card-glass rounded-2xl p-6 space-y-4">
+        <div class="flex gap-1 text-amber-400">
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+        </div>
+        <p class="text-zinc-300 text-sm leading-relaxed italic">
+          "Antes levava 3 dias para fechar o relatório mensal de fretes. Hoje o dashboard atualiza automaticamente toda manhã. Economizei tempo e identifiquei R$ 43 mil em custos desnecessários logo no primeiro mês."
+        </p>
+        <div class="border-t border-slate-700/50 pt-4 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center font-bold text-white text-sm shrink-0">RC</div>
+          <div>
+            <div class="text-zinc-100 text-sm font-semibold">Ricardo Carneiro</div>
+            <div class="text-zinc-500 text-xs">Gerente de Operações · Transportadora Delta, SP</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-2xl p-6 space-y-4">
+        <div class="flex gap-1 text-amber-400">
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+        </div>
+        <p class="text-zinc-300 text-sm leading-relaxed italic">
+          "Sou empresária de uma transportadora pequena e sempre achei que BI era coisa de empresa grande. A Logic Data mudou isso. Em 60 dias já tomava decisões de frota com dados — minha margem subiu 6 pontos percentuais."
+        </p>
+        <div class="border-t border-slate-700/50 pt-4 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center font-bold text-white text-sm shrink-0">MA</div>
+          <div>
+            <div class="text-zinc-100 text-sm font-semibold">Mariana Alves</div>
+            <div class="text-zinc-500 text-xs">Sócia-Proprietária · Alves Transportes, MG</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-2xl p-6 space-y-4">
+        <div class="flex gap-1 text-amber-400">
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+        </div>
+        <p class="text-zinc-300 text-sm leading-relaxed italic">
+          "O diferencial é que a equipe fala a mesma língua que a gente. Eles entendem de KPI logístico, OTIF, custo de frete. Não tive que explicar o básico — foram direto ao que importava para a minha operação."
+        </p>
+        <div class="border-t border-slate-700/50 pt-4 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center font-bold text-white text-sm shrink-0">CP</div>
+          <div>
+            <div class="text-zinc-100 text-sm font-semibold">Carlos Pinheiro</div>
+            <div class="text-zinc-500 text-xs">Diretor de Logística · Grupo Pinheiro, RS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FAQ
+════════════════════════════════════════ -->
+<section id="faq" class="py-24">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-blue-400 text-sm font-semibold uppercase tracking-widest">Dúvidas Frequentes</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-zinc-50">
+        Perguntas <span class="gradient-text">frequentes</span>
+      </h2>
+    </div>
+
+    <div class="space-y-3" id="faq-list">
+
+      <div class="faq-item card-glass rounded-2xl overflow-hidden">
+        <button class="faq-trigger w-full text-left p-6 flex items-center justify-between gap-4 hover:bg-slate-800/30 transition-colors">
+          <span class="text-zinc-100 font-semibold text-sm pr-4">Preciso ter uma equipe de TI para contratar a Logic Data?</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 shrink-0 chevron-icon"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-zinc-400 text-sm leading-relaxed pb-6">Não. Trabalhamos diretamente com gestores e operadores — sem necessidade de infraestrutura técnica sofisticada. Nós cuidamos de toda a parte técnica de coleta, modelagem e visualização dos dados.</p>
+        </div>
+      </div>
+
+      <div class="faq-item card-glass rounded-2xl overflow-hidden">
+        <button class="faq-trigger w-full text-left p-6 flex items-center justify-between gap-4 hover:bg-slate-800/30 transition-colors">
+          <span class="text-zinc-100 font-semibold text-sm pr-4">A consultoria serve para transportadoras de pequeno porte?</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 shrink-0 chevron-icon"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-zinc-400 text-sm leading-relaxed pb-6">Sim — e especialmente para pequenas e médias empresas. Operações menores têm muito a ganhar porque costumam tomar decisões sem dados estruturados. Nossos projetos são dimensionados para o volume e complexidade da sua realidade.</p>
+        </div>
+      </div>
+
+      <div class="faq-item card-glass rounded-2xl overflow-hidden">
+        <button class="faq-trigger w-full text-left p-6 flex items-center justify-between gap-4 hover:bg-slate-800/30 transition-colors">
+          <span class="text-zinc-100 font-semibold text-sm pr-4">Como funciona o processo de consultoria?</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 shrink-0 chevron-icon"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-zinc-400 text-sm leading-relaxed pb-6">Começamos com um diagnóstico gratuito para entender sua operação. Em seguida apresentamos uma proposta com escopo e prazo definidos. Aprovada, iniciamos a implementação — que geralmente leva de 4 a 8 semanas dependendo da complexidade.</p>
+        </div>
+      </div>
+
+      <div class="faq-item card-glass rounded-2xl overflow-hidden">
+        <button class="faq-trigger w-full text-left p-6 flex items-center justify-between gap-4 hover:bg-slate-800/30 transition-colors">
+          <span class="text-zinc-100 font-semibold text-sm pr-4">Quais ferramentas vocês utilizam?</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 shrink-0 chevron-icon"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-zinc-400 text-sm leading-relaxed pb-6">Utilizamos principalmente Power BI (Microsoft), que é gratuito e amplamente adotado no mercado. Podemos integrar com Excel, ERPs e qualquer sistema que sua empresa já use como fonte de dados.</p>
+        </div>
+      </div>
+
+      <div class="faq-item card-glass rounded-2xl overflow-hidden">
+        <button class="faq-trigger w-full text-left p-6 flex items-center justify-between gap-4 hover:bg-slate-800/30 transition-colors">
+          <span class="text-zinc-100 font-semibold text-sm pr-4">Os dashboards ficam na empresa ou dependem de vocês para funcionar?</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 shrink-0 chevron-icon"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-zinc-400 text-sm leading-relaxed pb-6">Tudo que entregamos pertence à sua empresa. Após o projeto, você tem autonomia total para usar e adaptar as soluções — sem dependência contínua da Logic Data para o dia a dia funcionar.</p>
+        </div>
+      </div>
+
+      <div class="faq-item card-glass rounded-2xl overflow-hidden">
+        <button class="faq-trigger w-full text-left p-6 flex items-center justify-between gap-4 hover:bg-slate-800/30 transition-colors">
+          <span class="text-zinc-100 font-semibold text-sm pr-4">Quanto tempo leva para ter os primeiros resultados?</span>
+          <i data-lucide="chevron-down" class="w-5 h-5 text-zinc-400 shrink-0 chevron-icon"></i>
+        </button>
+        <div class="faq-answer px-6">
+          <p class="text-zinc-400 text-sm leading-relaxed pb-6">A maioria dos clientes tem os primeiros dashboards funcionando em 2 a 4 semanas. Melhorias operacionais mensuráveis — como redução de custos e melhoria de OTIF — costumam aparecer nos primeiros 30 a 60 dias de uso.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     CTA FINAL
+════════════════════════════════════════ -->
+<section class="py-24 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/15 via-transparent to-blue-900/15 pointer-events-none"></div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative space-y-8">
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-zinc-50">
+      Sua operação logística merece decisões <span class="gradient-text">baseadas em dados</span>
+    </h2>
+    <p class="text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed">
+      Chega de reuniões sem dados, relatórios atrasados e margens que você não consegue explicar. Dê o próximo passo agora.
+    </p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="https://wa.me/5551992113434?text=Ol%C3%A1%21+Gostaria+de+solicitar+um+diagn%C3%B3stico+gratuito+da+Logic+Data."
+         target="_blank" rel="noopener noreferrer"
+         class="emerald-glow inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-10 py-5 rounded-xl text-lg transition-all duration-200 hover:scale-105">
+        <i data-lucide="zap" class="w-5 h-5"></i>
+        Quero um Diagnóstico Gratuito
+      </a>
+    </div>
+    <p class="text-zinc-500 text-sm">Sem compromisso · Sem custo · 30 minutos</p>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer class="border-t border-slate-800/60 bg-slate-950/60">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="lg:col-span-2 space-y-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center">
+            <span class="mono text-white font-bold text-xs">LD</span>
+          </div>
+          <span class="font-extrabold text-lg tracking-tight text-zinc-100">Logic<span class="text-blue-400">Data</span></span>
+        </div>
+        <p class="text-zinc-500 text-sm leading-relaxed max-w-sm">
+          Especialistas em Business Intelligence aplicado à logística. Transformamos dados operacionais em decisões lucrativas para transportadoras e gestores de supply chain.
+        </p>
+        <a href="https://wa.me/5551992113434" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 text-zinc-400 hover:text-emerald-400 text-sm transition-colors">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          +55 51 99211-3434
+        </a>
+      </div>
+
+      <div>
+        <h4 class="text-zinc-300 text-sm font-semibold mb-4">Consultoria</h4>
+        <ul class="space-y-2.5">
+          <li><a href="#servicos"   class="text-zinc-500 hover:text-zinc-300 text-sm transition-colors">Serviços</a></li>
+          <li><a href="#para-quem"  class="text-zinc-500 hover:text-zinc-300 text-sm transition-colors">Para quem é</a></li>
+          <li><a href="#processo"   class="text-zinc-500 hover:text-zinc-300 text-sm transition-colors">Como Funciona</a></li>
+          <li><a href="#faq"        class="text-zinc-500 hover:text-zinc-300 text-sm transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-zinc-300 text-sm font-semibold mb-4">Contato</h4>
+        <ul class="space-y-2.5">
+          <li>
+            <a href="https://wa.me/5551992113434" target="_blank" rel="noopener noreferrer"
+               class="text-zinc-500 hover:text-emerald-400 text-sm transition-colors flex items-center gap-2">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>WhatsApp
+            </a>
+          </li>
+          <li>
+            <a href="mailto:contato@logicdata.com.br"
+               class="text-zinc-500 hover:text-zinc-300 text-sm transition-colors flex items-center gap-2">
+              <i data-lucide="mail" class="w-4 h-4"></i>contato@logicdata.com.br
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-slate-800/60 mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-zinc-600 text-xs">© 2025 Logic Data. Todos os direitos reservados.</p>
+      <p class="text-zinc-600 text-xs">CNPJ: XX.XXX.XXX/XXXX-XX</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- WhatsApp flutuante -->
+<a href="https://wa.me/5551992113434?text=Ol%C3%A1%21+Vim+do+site+da+Logic+Data+e+gostaria+de+saber+mais+sobre+a+consultoria."
+   target="_blank" rel="noopener noreferrer"
+   id="wa-float"
+   title="Fale pelo WhatsApp"
+   style="opacity:0;transition:opacity .5s ease,transform .2s ease;bottom:1.5rem;right:1.5rem;"
+   class="fixed z-50 w-14 h-14 bg-emerald-500 hover:bg-emerald-400 rounded-full flex items-center justify-center shadow-2xl shadow-emerald-500/30 hover:scale-110">
+  <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+
+<script>
+  // Lucide icons
+  lucide.createIcons();
+
+  // WhatsApp float — aparece após 2s
+  setTimeout(() => { document.getElementById('wa-float').style.opacity = '1'; }, 2000);
+
+  // Mobile menu
+  const menuBtn  = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIconEl = document.getElementById('menu-icon-el');
+  let menuOpen = false;
+
+  menuBtn.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle('hidden', !menuOpen);
+    menuIconEl.setAttribute('data-lucide', menuOpen ? 'x' : 'menu');
+    lucide.createIcons();
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuOpen = false;
+      mobileMenu.classList.add('hidden');
+      menuIconEl.setAttribute('data-lucide', 'menu');
+      lucide.createIcons();
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item   = trigger.closest('.faq-item');
+      const answer = item.querySelector('.faq-answer');
+      const icon   = trigger.querySelector('.chevron-icon');
+      const isOpen = answer.classList.contains('open');
+
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.chevron-icon').forEach(i => i.classList.remove('rotated'));
+
+      if (!isOpen) {
+        answer.classList.add('open');
+        icon.classList.add('rotated');
+      }
+    });
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>

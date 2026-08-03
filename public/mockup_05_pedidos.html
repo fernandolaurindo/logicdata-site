@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LogicBi — Pedidos (mockup demo)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#f1f5f9;--card:#fff;--ink:#0f172a;--ink2:#334155;--muted:#64748b;--muted2:#94a3b8;
+    --line:#e2e8f0;--blue:#2563eb;--green:#16a34a;--red:#dc2626;--gold:#ca8a04;}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;-webkit-font-smoothing:antialiased;padding:30px 34px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 3px rgba(15,23,42,.04);overflow:hidden}
+  .ch{display:flex;justify-content:space-between;align-items:flex-start;padding:22px 24px}
+  .ch h3{font-size:18px;font-weight:700}
+  .ch p{font-size:13px;color:var(--muted);margin-top:2px}
+  .exp{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 16px;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink2);display:flex;align-items:center;gap:8px;cursor:pointer}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{text-align:left;padding:11px 14px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:#f8fafc;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  tbody td{padding:12px 14px;border-bottom:1px solid #f1f5f9;color:var(--ink2);white-space:nowrap}
+  tbody tr:hover{background:#fafbfc}
+  .ctrc{font-weight:700;color:var(--ink)}
+  .muted{color:var(--muted2)}
+  .badge{display:inline-block;padding:4px 11px;border-radius:99px;font-size:11.5px;font-weight:700}
+  .b-ok{background:#dcfce7;color:#15803d}
+  .b-late{background:#fee2e2;color:#b91c1c}
+  .lm-a{color:var(--green);font-weight:600}
+  .lm-d{color:var(--gold);font-weight:600}
+  .ftr{padding:14px;text-align:center;font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="ch">
+      <div><h3>Últimos 15 de 1.765 pedidos</h3><p>Exportar para ver todos os registros</p></div>
+      <button class="exp">⭳ Exportar (1.765)</button>
+    </div>
+    <table>
+      <thead><tr>
+        <th>CTRC</th><th>Cliente</th><th>Destinatário</th><th>Cidade</th><th>UF</th><th>Unidade</th><th>Placa</th><th>Motorista</th><th>Previsão</th><th>Entrega Real</th><th>Tempo</th><th>Performance</th><th>Chegada LM</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="ctrc">LGB010112-4</td><td>Comercial Aurora</td><td>Antônio Prado</td><td>São Leopoldo</td><td>RS</td><td>NH2</td><td>RKT7A21</td><td>Anderson Souza</td><td>08/07/2026</td><td>07/07/2026</td><td>3d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-a">1d antes</td></tr>
+        <tr><td class="ctrc">LGB010098-7</td><td>Distribuidora Sul</td><td>Eugênia Kraus</td><td>Farroupilha</td><td>RS</td><td>CSL</td><td>QMV4C88</td><td>Rafael Lima</td><td>07/07/2026</td><td>07/07/2026</td><td>4d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-d">No dia</td></tr>
+        <tr><td class="ctrc">LGB010087-2</td><td>Distribuidora Sul</td><td>Luciano Brochado</td><td>Farroupilha</td><td>RS</td><td>CSL</td><td class="muted">–</td><td class="muted">—</td><td>07/07/2026</td><td>06/07/2026</td><td>3d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-a">1d antes</td></tr>
+        <tr><td class="ctrc">LGB010076-9</td><td>Comercial Aurora</td><td>Tiago Assis</td><td>Jaraguá do Sul</td><td>SC</td><td>JVN</td><td>LPD2E15</td><td>Bruno Alves</td><td>07/07/2026</td><td>08/07/2026</td><td>5d</td><td><span class="badge b-late">Fora do prazo</span></td><td class="lm-d">No dia</td></tr>
+        <tr><td class="ctrc">LGB010065-1</td><td>Rede Bemvinda</td><td>Magnos Franco</td><td>Porto Belo</td><td>SC</td><td>TJ1</td><td>HGF9B30</td><td>Tiago Rocha</td><td>07/07/2026</td><td>06/07/2026</td><td>4d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-a">2d antes</td></tr>
+        <tr><td class="ctrc">LGB010054-6</td><td>Comercial Aurora</td><td>Lenise Spies</td><td>Bom Princípio</td><td>RS</td><td>CSP</td><td class="muted">–</td><td class="muted">—</td><td>06/07/2026</td><td>06/07/2026</td><td>3d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-a">1d antes</td></tr>
+        <tr><td class="ctrc">LGB010043-8</td><td>Mercantil Horizonte</td><td>Rita Cássia</td><td>Palhoça</td><td>SC</td><td>FL1</td><td class="muted">–</td><td class="muted">—</td><td>06/07/2026</td><td>05/07/2026</td><td>4d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-a">1d antes</td></tr>
+        <tr><td class="ctrc">LGB010032-3</td><td>Atacado Verde</td><td>Nilson Arnaldo</td><td>Itajaí</td><td>SC</td><td>ITJ</td><td>NBX5D42</td><td>Marcos Dias</td><td>06/07/2026</td><td>06/07/2026</td><td>3d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-d">No dia</td></tr>
+        <tr><td class="ctrc">LGB010021-5</td><td>Comercial Aurora</td><td>Gilberto Giácomo</td><td>Palhoça</td><td>SC</td><td>FL1</td><td class="muted">–</td><td class="muted">—</td><td>06/07/2026</td><td>07/07/2026</td><td>5d</td><td><span class="badge b-late">Fora do prazo</span></td><td class="lm-d">No dia</td></tr>
+        <tr><td class="ctrc">LGB010010-0</td><td>Mercantil Horizonte</td><td>Sandra Vieira</td><td>Florianópolis</td><td>SC</td><td>FL1</td><td class="muted">–</td><td class="muted">—</td><td>06/07/2026</td><td>05/07/2026</td><td>4d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-a">1d antes</td></tr>
+        <tr><td class="ctrc">LGB009999-2</td><td>Comercial Aurora</td><td>Cristiano Góes</td><td>Itapema</td><td>SC</td><td>TJ1</td><td>JTR6A09</td><td>Felipe Cardoso</td><td>05/07/2026</td><td>04/07/2026</td><td>3d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-a">1d antes</td></tr>
+        <tr><td class="ctrc">LGB009988-4</td><td>Comercial Aurora</td><td>Cristina Ferro</td><td>Caxias do Sul</td><td>RS</td><td>CSL</td><td>SVK3C71</td><td>Diego Nunes</td><td>05/07/2026</td><td>05/07/2026</td><td>4d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-a">2d antes</td></tr>
+        <tr><td class="ctrc">LGB009977-6</td><td>Comercial Aurora</td><td>David Kikuchi</td><td>Florianópolis</td><td>SC</td><td>FL1</td><td class="muted">–</td><td class="muted">—</td><td>05/07/2026</td><td>04/07/2026</td><td>3d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-d">No dia</td></tr>
+        <tr><td class="ctrc">LGB009966-1</td><td>Comercial Aurora</td><td>Gilberto Wail</td><td>Canoas</td><td>RS</td><td>POA</td><td>MED1F54</td><td>Paulo Mendes</td><td>05/07/2026</td><td>04/07/2026</td><td>4d</td><td><span class="badge b-ok">No prazo</span></td><td class="lm-a">1d antes</td></tr>
+        <tr><td class="ctrc">LGB009955-8</td><td>Distribuidora Sul</td><td>Rosane Lindt</td><td>Tapejara</td><td>RS</td><td>PFL</td><td class="muted">–</td><td class="muted">—</td><td>05/07/2026</td><td>06/07/2026</td><td>5d</td><td><span class="badge b-late">Fora do prazo</span></td><td class="lm-a">2d antes</td></tr>
+      </tbody>
+    </table>
+    <div class="ftr">Exibindo 15 de 1.765 registros — use "Exportar" para o arquivo completo</div>
+  </div>
+</body>
+</html>
