@@ -872,10 +872,8 @@
     produtoStage.style.height = (1300 * s) + 'px';
   }
 
-  const SLIDE_MS = 3000;
+  const SLIDE_MS = 4000;
   let slideTimer = null;
-  let tabsPaused = false;
-  const produtoSection = document.getElementById('produto');
 
   function activateTab(tab) {
     produtoTabs.forEach(t => t.classList.remove('on'));
@@ -888,7 +886,6 @@
   function startSlide() {
     clearInterval(slideTimer);
     slideTimer = setInterval(() => {
-      if (tabsPaused) return;
       const idx = [...produtoTabs].findIndex(t => t.classList.contains('on'));
       activateTab(produtoTabs[(idx + 1) % produtoTabs.length]);
     }, SLIDE_MS);
@@ -900,17 +897,6 @@
       startSlide();
     });
   });
-
-  if (produtoSection) {
-    produtoSection.addEventListener('mouseenter', () => {
-      tabsPaused = true;
-      produtoSection.classList.add('produto-paused');
-    });
-    produtoSection.addEventListener('mouseleave', () => {
-      tabsPaused = false;
-      produtoSection.classList.remove('produto-paused');
-    });
-  }
 
   startSlide();
   scaleProdutoFrame();
