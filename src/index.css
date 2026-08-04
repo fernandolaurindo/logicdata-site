@@ -293,7 +293,7 @@ ul { list-style: none; }
 }
 
 /* =============================================
-   WHATSAPP FLOAT
+   EMAIL FLOAT
    ============================================= */
 .whatsapp-float {
   position: fixed;
@@ -301,25 +301,25 @@ ul { list-style: none; }
   right: 28px;
   width: 56px;
   height: 56px;
-  background: #25D366;
+  background: #2563EB;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9000;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  box-shadow: 0 4px 20px rgba(37,99,235,0.4);
   transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease;
 }
 
 .whatsapp-float:hover {
   transform: scale(1.12) translateY(-2px);
-  box-shadow: 0 8px 30px rgba(37,211,102,0.55);
+  box-shadow: 0 8px 30px rgba(37,99,235,0.55);
 }
 
 .whatsapp-float svg {
-  width: 28px;
-  height: 28px;
-  fill: white;
+  width: 26px;
+  height: 26px;
+  stroke: white;
 }
 
 /* =============================================
